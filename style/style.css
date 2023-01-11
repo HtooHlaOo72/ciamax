@@ -1,0 +1,37 @@
+
+
+.opacity_reduced{
+    opacity:0.7;
+}
+.normal_opacity{
+    opacity: 1 !important;
+}
+
+.text-brown{
+    color: rgba(1, 6, 26, 0.91);
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.logo_text{
+    font-weight: bold;
+    font-size: 30px;
+}
+.small_title{
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration:underline !important;
+    text-decoration-thickness: 3px !important;
+}
+
+
+.border_bottom{
+    border-bottom:3px solid black!important;
+}
+
+.border-round-small{
+    border-radius: 10% !important;
+}
+
+
+
