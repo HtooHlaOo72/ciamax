@@ -9,7 +9,10 @@ class Ciamax implements \Util\Website{
 
     public function __construct(){
         $pdo = new \PDO('mysql:host=localhost;dbname=ciamax','root','rootcms');
-        $this->userTable = new \Util\DatabaseTable($pdo,'user','id','\Ciamax\Entity\User',[&$this->dishTable,&$this->packageTable,&$this->shopTable] );
+        // $sql='SELECT * FROM user';
+        // $stmt=$pdo->query($sql);
+        // $results=$stmt->fetchall();
+        $this->userTable = new \Util\DatabaseTable($pdo,'user','id','\Ciamax\Entity\User');
         $this->authentication = new \Util\Authentication($this->userTable,'email','password');
     }
     public function getLayoutVariables(): array {

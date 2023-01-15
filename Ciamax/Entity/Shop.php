@@ -1,5 +1,5 @@
 <?php
-namespace \Ciamax\Entity;
+namespace Ciamax\Entity;
 class Shop {
     public $id;
     public $username;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title><?=$title?></title>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/css/uikit.min.css" />
 	    <link rel="stylesheet" href="style/style.css" />
@@ -14,7 +14,7 @@
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
                     <li class="uk-active ">
-                        <a href="/" ><strong class="logo_text">Ciamax</strong></a>
+                        <a href="/ciamax/home.html" ><strong class="logo_text">Ciamax</strong></a>
                     </li>
                 </ul>
             </div>
