@@ -1,10 +1,10 @@
 <?php
 namespace Ciamax;
 class Ciamax implements \Util\Website{
-    private ?\Util\DatabaseTable $studentTable;
+    private ?\Util\DatabaseTable $userTable;
     private ?\Util\DatabaseTable $shopTable;
     private ?\Util\DatabaseTable $dishTable;
-    private ?\Util\DatabaseTable $packageTable;
+    private ?\Util\DatabaseTable $membershipTable;
     private ?\Util\Authentication $authentication;
 
     public function __construct(){
@@ -19,13 +19,14 @@ class Ciamax implements \Util\Website{
     }
 
     public function getDefaultRoute(): string {
-        return '/';
+        return '/ciamax/public/';
     }
 
     public function getController(string $controllerName): ?object {
 
       $controllers = [
-       ""
+       "user"=>new \Ciamax\Controllers\User($this->userTable),
+       "login"=>new \Ciamax\Controllers\Login($this->authentication),
       ];
       
       return $controllers[$controllerName] ?? null;

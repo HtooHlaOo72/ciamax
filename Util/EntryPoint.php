@@ -8,13 +8,13 @@ class EntryPoint {
      public function run(string $uri, string $method) {
         try {
             $this->checkUri($uri, $method);
-            echo "Entry Run";
             if ($uri == '') {
                 $uri = $this->website->getDefaultRoute();
             }
 
             $route = explode('/', $uri);
-
+            array_shift($route);#skip /ciamax
+            array_shift($route);#skip /public
             $controllerName = array_shift($route);
             $action = array_shift($route);
 
