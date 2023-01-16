@@ -1,6 +1,6 @@
 <?php
 if (isset($errorMessage)):
-    echo '<div class="errors">Sorry, your username and password could not be found.</div>';
+    echo '<div class="uk-alert-danger">Sorry, your username and password could not be found.</div>';
 endif;
 ?>
 <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
