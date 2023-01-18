@@ -38,7 +38,12 @@ class Authentication {
         unset($_SESSION['password']);
         session_regenerate_id();
     }
-
+    public function isAdmin():bool{
+        if(!$this->isLoggedIn()){
+            return false;
+        }
+        return $this->getUser()->getRole()==3;
+    }
     public function getUser(): ?object {
 	  if ($this->isLoggedIn()) {
 	    return $this->users->find($this->usernameColumn, strtolower($_SESSION['username']))[0];
@@ -47,4 +52,21 @@ class Authentication {
 	    return null;
 	  }
 	}
+    private function describeRole($rn):string{ #rn ->role number
+        $roles = [
+            1 => 'Student',
+            2 => 'Store Owner',
+            3 => 'Admin'
+        ];
+        
+        if(array_key_exists($rn,$roles)){
+            return $roles[$rn];
+        }else{
+            return "Unregistered";
+        }
+       
+    }
+    public function getRoleName():string{
+        return $this->describeRole($this->getUser()->getRole());
+    }
 }

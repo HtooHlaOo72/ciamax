@@ -7,14 +7,12 @@ class EntryPoint {
 
      public function run(string $uri, string $method) {
         try {
-            $this->checkUri($uri, $method);
+            $this->checkUri($uri);
             if ($uri == '') {
                 $uri = $this->website->getDefaultRoute();
             }
 
             $route = explode('/', $uri);
-            array_shift($route);#skip /ciamax
-            array_shift($route);#skip /public
             $controllerName = array_shift($route);
             $action = array_shift($route);
             $this->website->checkLogin($controllerName . '/' . $action);
@@ -29,7 +27,7 @@ class EntryPoint {
                 $page = $controller->$action(...$route);
 
                 $title = $page['title'];
-
+                
                 $variables = $page['variables'] ?? [];
                 $output = $this->loadTemplate($page['template'], $variables);
             }
@@ -49,7 +47,7 @@ class EntryPoint {
         $layoutVariables = $this->website->getLayoutVariables();
         $layoutVariables['title'] = $title;
         $layoutVariables['output'] = $output;
-
+        
         echo $this->loadTemplate('layout.html.php', $layoutVariables);
     }
 
@@ -63,9 +61,12 @@ class EntryPoint {
     }
 
     private function checkUri($uri) {
+        
         if ($uri != strtolower($uri)) {
             http_response_code(301);
             header('location: /' . strtolower($uri));
         }
+       
     }
 }
+

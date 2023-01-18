@@ -9,6 +9,9 @@ class User {
     public function __construct(){
 
     }
+    public function getRole(){
+        return $this->role;
+    }
 
-   
+    
 }

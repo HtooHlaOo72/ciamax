@@ -1,22 +1,39 @@
 <?php
 namespace Ciamax\Controllers;
+use Util\Authentication;
 use \Util\DatabaseTable;
 class User {
-    public function __construct(private DatabaseTable $userTable){
+    public function __construct(private DatabaseTable $userTable,private DatabaseTable $storeTable,private Authentication $authentication){
 
     }
-    public function list(){
+    public function list(){#this fun is not route (to use in route pubilic function such as dashboard)
+
         $users = $this->userTable->findAll();
         $errors=[];
-        echo is_array($users);
+        
         return [
             'template'=>'userlist.html.php',
             'title'=>'User List',
+            'profile'=>$this->authentication->getUser(),
             'variables'=>[
                 'users'=>$users,
                 'errors'=>$errors,
+                
             ]
         ];
+    }
+    public function dashboard(){
+        $users = $this->userTable->findAll();
+        $stores = $this->storeTable->findAll();
+        return [
+            'template' => 'dashboard.html.php',
+            'title' => 'Admin Dashboard',
+            'variables' => [
+                'users' => $users,
+                'stores' => $stores,
+            ]
+        ];
+        
     }
     public function registrationForm() {
         return [
@@ -29,7 +46,7 @@ class User {
        
         return [
             'template' => 'registersuccess.html.php',
-            'title' => 'Registration Successful'
+            'title' => 'Registration Successful',
         ];
     }
 

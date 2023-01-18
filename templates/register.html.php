@@ -44,7 +44,7 @@ endif;
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                                        <input class="uk-input uk-form-large" type="password" placeholder="Password" name="user[password]" id='password' value="<?=$user['password'] ?? ''?>">>	
+                                        <input class="uk-input uk-form-large" type="password" placeholder="Password" name="user[password]" id='password' value="<?=$user['password'] ?? ''?>">	
                                     </div>
                                 </div>
                                 <div class="uk-margin">

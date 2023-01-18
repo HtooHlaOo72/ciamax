@@ -21,9 +21,9 @@
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav uk-visible@s">
                     <li><a class="uk-text-large" href="/">Home</a></li>
-                    <li><a class="uk-text-large" href="/menu.php">Courts</a></li>
+                    <li><a class="uk-text-large" href="/menu.php">Stores</a></li>
                     <li><a class="uk-text-large" href="/menu.php">Dishes</span></a></li>
-                    <li><a class="uk-text-large" href="/menu.php">Login</a></li>
+                    <li><a class="uk-text-large" href="/ciamax/public/login/login" style='color:blue;'><?=(!empty($profile->name))?$profile->name." ($role) " :"Login"; ?></a></li>
                 </ul>
                 <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
             </div>
