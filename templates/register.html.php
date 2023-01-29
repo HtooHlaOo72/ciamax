@@ -22,7 +22,7 @@ endif;
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">Student Registration</h3>
-                            <form method="POST" action=''>
+                            <form method="POST" action='' enctype='multipart/form-data'>
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon: info"></span>

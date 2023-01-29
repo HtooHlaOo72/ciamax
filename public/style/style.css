@@ -33,5 +33,14 @@
     border-radius: 10% !important;
 }
 
+.width_100{
+    min-width:100px !important;
+    width:100px !important;
+}
 
-
+.border_round{
+    border-radius: 5px;
+}
+.smallest_font_size{
+    font-size: .6rem !important;
+}

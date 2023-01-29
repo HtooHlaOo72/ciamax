@@ -21,12 +21,12 @@ class Ciamax implements \Util\Website{
         return [
             'loggedIn' => $this->authentication->isLoggedIn(),
             'profile'=>$this->authentication->getUser(),
-            'role'=>$this->authentication->getRoleName(),
+            'role'=>($this->authentication->getUser())?$this->authentication->getRoleName():"",
         ];
     }
 
     public function getDefaultRoute(): string {
-        return '/login/login';
+        return '/ciamax/public/user/list';
     }
 
     public function getController(string $controllerName): ?object {
@@ -40,11 +40,14 @@ class Ciamax implements \Util\Website{
     }
     public function checkLogin(string $uri):string {
         $restrictedPages = [
-            'user/list'
+            // 'user/list'
         ];
-        if(in_array($uri,$restrictedPages)){
-            if(!$this->authentication->isLoggedIn()){
-                header('Location:/ciamax/public/login/login');
+        $adminPages = [
+            // 'store/register'
+        ];
+        if(in_array($uri,$restrictedPages) or in_array($uri,$adminPages)){
+            if(!($this->authentication->isLoggedIn() and $this->authentication->getUser()->role ==3)){
+                header('Location:/ciamax/public/user/list');
             }
         }
         return $uri;
