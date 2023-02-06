@@ -32,6 +32,12 @@ class Authentication {
             return false;
         }
     }
+    public function changePassword($name,$password,$new_password):bool {
+        if($this->isLoggedIn()){
+            
+        }
+        return false;
+    }
 
     public function logout() {
         unset($_SESSION['username']);
@@ -67,6 +73,6 @@ class Authentication {
        
     }
     public function getRoleName():string{
-        return $this->describeRole($this->getUser()->getRole());
+        return $this->describeRole($this->getUser() && $this->getUser()->role);
     }
 }

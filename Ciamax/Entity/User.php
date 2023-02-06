@@ -5,6 +5,7 @@ class User {
     public $name;
     public $email;
     public $password;
+    public $img;
     public $role;
     public function __construct(){
 
@@ -13,5 +14,8 @@ class User {
         return $this->role;
     }
 
+    public function changeInfo($key,$value){
+
+    }
     
 }

@@ -3,11 +3,11 @@ namespace Ciamax\Controllers;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class User {
-    public function __construct(private DatabaseTable $userTable,private DatabaseTable $storeTable,private Authentication $authentication){
+    public function __construct(private DatabaseTable $userTable,private DatabaseTable $storeTable,private DatabaseTable $menuTable,private Authentication $authentication){
 
     }
-    public function list(){#this fun is not route (to use in route pubilic function such as dashboard)
-
+    public function list(){
+        #this fun is not route (to use in route pubilic function such as dashboard)
         $users = $this->userTable->findAll();
         $errors=[];
         
@@ -25,6 +25,7 @@ class User {
     public function dashboard(){
         $users = $this->userTable->findAll();
         $stores = $this->storeTable->findAll();
+        
         return [
             'template' => 'dashboard.html.php',
             'title' => 'Admin Dashboard',
@@ -99,6 +100,102 @@ class User {
       ];
         }
     }
+    public function removeSubmit(){
+        $id = $_POST['id'];
+        if(!is_null($id)){
+            $store=$this->storeTable->find("userId", $id)[0];
+            if($store and isset($store->id)){
+                $storeId = $store->id;
+                $this->menuTable->delete("storeId", $storeId);
+                $this->storeTable->delete("id", $storeId);
+            }
+            
+            $this->userTable->delete("id",$id);
+        }
+        header("Location: /ciamax/public/user/dashboard");
+    }
+    public function changeInfo($id){
+        $user = $this->userTable->find("id", $id)[0];
+        return [
+            "title"=>"Update User",
+            "template"=>"register.html.php",
+            "variables"=>[
+                "user"=>$user,
+                "is_update"=>true,
+            ],
+        ];
+    }
+    public function changeInfoSubmit(){
+        $user = $_POST['user'];
+        $errors = [];
+        if (empty($user['name'])) {
+            $errors[] = 'Name cannot be blank';
+        }
 
+        if (empty($user['email'])) {
+            $errors[] = 'Email cannot be blank';
+        } else if (filter_var($user['email'], FILTER_VALIDATE_EMAIL) == false) {
+            $errors[] = 'Invalid email address';
+        } else { // If the email is not blank and valid:
+            // convert the email to lowercase
+            $user['email'] = strtolower($user['email']);
+        }
+        if (empty($user['password'])) {
+            $errors[] = 'Password cannot be blank';
+        }
+        if(!$this->authentication->login($user['email'],$user['password'])){
+            $errors[] = 'Incorrect email or password';
+        }
+        if(empty($user['new_password'])){
+            $errors[]="New password cannot be blank";
+        }
+        // If there are no errors, proceed with saving the record in the database
+        if (count($errors) === 0) {
+            // Hash the password before saving it in the database
+            $user['password'] = password_hash($user['new_password'], PASSWORD_DEFAULT);
+            // When submitted, the $user variable now contains a lowercase value for email
+            // and a hashed password
+            unset($user['new_password']);
+            $this->userTable->save($user);
+            header('Location: /ciamax/public/user/success');
+        } else {
+            // If the data is not valid, show the form again
+            return [
+                'template' => 'register.html.php',
+                'title' => 'Register an account',
+                'variables' => [
+                    'errors' => $errors,
+                    'user' => $user
+                ]
+            ];
+    }}
+    private function update($id,$key,$value){
+        
+    }
+    
 
+    public function menuList(){
+
+    }
+    public function home(){
+
+    }
+    public function subscribe(){
+
+    }
+    public function subscribeSubmit(){
+
+    }
+    public function purchase(){
+
+    }
+    public function purchaseSubmit(){
+
+    }
+    public function acceptMeal(){
+        
+    }
+    public function acceptMealSubmit(){
+
+    }
 }

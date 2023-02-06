@@ -1,18 +1,41 @@
 <?php
 namespace Ciamax\Entity;
+use Util\DatabaseTable;
 class Store {
     public $id;
     public $name;
-    public $description;
-    public $price;
+    public $ph_no;
+    public $img;
+    public $qr_img;
     public $userId;
-    public $no_of_day;
-    public function __construct(private \Util\DatabaseTable $userTable){
+    
+    public function __construct(private DatabaseTable $userTable,private ?DatabaseTable $memberTable,private ?DatabaseTable $menutable,private ?DatabaseTable $menuHistoryTable){
 
     }
 
     public function getOwner(){
         return $this->userTable->find("id", $this->userId)[0];
     }
-   
+    public function getMembers(){
+
+    }
+    public function getMenus(){
+
+    }
+    public function findMemberHistory($id){
+
+    }
+    public function addMenu(){
+
+    }
+    public function deleteMenu($id){
+
+    }
+    public function updateMenu(){
+
+    }
+    public function TotalMembers():int {
+        return count($this->memberTable->find('storeId', $this->id));
+    }
+    
 }

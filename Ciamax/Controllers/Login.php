@@ -21,7 +21,7 @@ class Login {
                    ];
         }
         else {
-            return ['template' => 'loginForm.html.php',
+            return ['template' => 'login.html.php',
                     'title' => 'Log in',
                     'variables' => [
                         'errorMessage' => true
@@ -35,4 +35,6 @@ class Login {
         $this->authentication->logout();
         header('location: /ciamax/public/user/list');
     }
+
+    
 }

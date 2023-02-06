@@ -26,9 +26,9 @@ endif;
                                 <div class="uk-margin">
                                     <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" name='login'>Login</button>
                                 </div>
-                                <!-- <div class="uk-text-small uk-text-center">
-                                    Not registered? <a href="#">Create an account</a>
-                                </div> -->
+                                <div class="uk-text-small uk-text-center">
+                                    Not registered? <a href="/ciamax/public/user/registrationForm">Create an account</a>
+                                </div>
                             </form>
                         </div>
                     </div>

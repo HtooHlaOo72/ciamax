@@ -44,3 +44,7 @@
 .smallest_font_size{
     font-size: .6rem !important;
 }
+.wall_info_text{
+    font-size: 2em;
+    color:black;
+}
