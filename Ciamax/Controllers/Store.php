@@ -18,6 +18,7 @@ class Store {
             'variables'=>[
                 'stores'=>$stores,
                 'errors'=>$errors,
+                'role'=>$this->authentication->isLoggedIn()?$this->authentication->getRole():"",
             ]
         ];
     }
@@ -35,6 +36,7 @@ class Store {
     }
     
     public function registerSubmit(){
+        
         $store = null;
         $newStore = $_POST["store"];
         
@@ -65,6 +67,7 @@ class Store {
             $updatedStore=$this->storeTable->save($newStore);
             $newStore['id'] = $updatedStore->id ?? "";
             if(isset($_FILES['img']) and $_FILES['img']['size']>0){
+                echo "IMG";
                 $url = "uploads/store/" . $updatedStore->id . "_profile_" . $updatedStore->userId;
                 $upload_errs = \Ciamax\Ciamax::uploadAndStore('img', $url);
                 if(!empty($upload_errs)){
@@ -151,7 +154,12 @@ class Store {
         // $id = $_GET["id"];
         // echo $id . " IS ID";
         $errors=[];
-        $store = $this->storeTable->find('userId',($id)?$id:$this->authentication->getUser()->id)[0];
+        $store = null;
+        if($id){
+            $store = $this->storeTable->find('id',$id)[0];
+        }else{
+            $store = $this->storeTable->find('userId', $this->authentication->getUser()->id)[0];
+        }
         $owner = $this->userTable->find('id',$store->userId)[0];
         $menus = $this->menuTable->find('storeId', $store->id);
         return [

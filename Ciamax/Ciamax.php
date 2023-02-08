@@ -14,10 +14,10 @@ class Ciamax implements \Util\Website{
         $pdo = new \PDO('mysql:host=localhost;dbname=ciamax2','root','rootcms');
        
         $this->userTable = new \Util\DatabaseTable($pdo,'user','id','\Ciamax\Entity\User');
-        $this->menuTable = new \Util\DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu');
+        $this->menuTable = new \Util\DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
         $this->memberTable = new \Util\DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->storeTable]);
         $this->menuHistoryTable = new DatabaseTable($pdo, "MenuHistory", 'id', '\Ciamax\Entity\MenuHistory',[&$this->memberTable]);
-        $this->storeTable = new \Util\DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->menu]);
+        $this->storeTable = new \Util\DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->menuTable]);
         $this->authentication = new \Util\Authentication($this->userTable,'email','password');
     }
     public function getLayoutVariables(): array {
@@ -25,6 +25,7 @@ class Ciamax implements \Util\Website{
             'loggedIn' => $this->authentication->isLoggedIn(),
             'profile'=>$this->authentication->getUser(),
             'role'=>($this->authentication->getUser())?$this->authentication->getRoleName():"",
+            'roleNum'=>($this->authentication->isLoggedIn())?$this->authentication->getRole():"",
         ];
     }
 
@@ -63,6 +64,7 @@ class Ciamax implements \Util\Website{
        "login"=>new \Ciamax\Controllers\Login($this->authentication),
        "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable,$this->userTable),
        "menu"=>new \Ciamax\Controllers\Menu($this->menuTable,$this->storeTable,$this->userTable,$this->authentication),
+       "member"=>new \Ciamax\Controllers\Member($this->userTable,$this->storeTable,$this->memberTable,$this->authentication),
       ];
       
       return $controllers[$controllerName] ?? null;

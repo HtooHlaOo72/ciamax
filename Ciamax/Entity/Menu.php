@@ -8,10 +8,10 @@ class Menu {
     public $price;
     public $img;
     public $storeId;
-    public function __construct(){
+    public function __construct(private DatabaseTable $storeTable){
 
     }
    public function getStore(){
-
+        return $this->storeTable->find('id', $this->storeId)[0];
    }
 }

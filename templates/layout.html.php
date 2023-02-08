@@ -22,10 +22,10 @@
                 <ul class="uk-navbar-nav uk-visible@s">
                     <li><a class="uk-text-large" href="/ciamax/public/user/home">Home</a></li>
                     <li><a class="uk-text-large" href="/ciamax/public/store/list">Stores</a></li>
-                    <li><a class="uk-text-large" href="/ciamax/public/user/list">Menu</span></a></li>
+                    <li><a class="uk-text-large" href="/ciamax/public/menu/list">Menus</span></a></li>
                     <li>
                         <a class="uk-text-large" href="/ciamax/public/login/login" style='color:blue;'><?=(!empty($profile->name))?$profile->name." ($role) " :"Login"; ?></a>
-                        <div uk-dropdown="pos: bottom-right; shift: false; flip: false">
+                        <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Profile</a></li>
                                 <li><a href="#">Log out</a></li>

@@ -7,6 +7,16 @@ class Menu{
 
     }
 
+    public function list(){
+        $menus = $this->menuTable->findAll();
+        return [
+            "template" => "menulist.html.php",
+            "title" => "Menu List",
+            "variables" => [
+                "menus" => $menus,
+            ],
+        ];
+    }
     public function addMenu(){
         return [
             'template'=>'addmenu.html.php',
@@ -16,6 +26,7 @@ class Menu{
         ];
     }
     public function addMenuSubmit(){
+        echo "Addmenu";
         $errors =[];
         if(!isset($_POST["name"])){
             $errors[] = "Menu name is empty";

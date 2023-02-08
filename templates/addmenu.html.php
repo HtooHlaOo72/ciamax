@@ -6,7 +6,7 @@
                     <div class="uk-width-1-1@m">
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">New Menu</h3>
-                            <form method="POST" action='/ciamax/public/store/addmenu' enctype="multipart/form-data">
+                            <form method="POST" action='' enctype="multipart/form-data">
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <label class='uk-form-label' for='name'>Name</label>

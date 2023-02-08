@@ -1,10 +1,12 @@
 <?php
 namespace Ciamax\Entity;
-class Member {
+class Member extends User {
     public $id;
-    public $no_day;
+    public $left_times;
     public $is_paid;
     public $start_date;
+
+    public $roll_no;
     public $userId;
     public $storeId;
 
@@ -21,6 +23,6 @@ class Member {
     }
     
     public function getStore(){
-        
+
     }
 }

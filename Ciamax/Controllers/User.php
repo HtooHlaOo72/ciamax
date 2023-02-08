@@ -18,20 +18,20 @@ class User {
             'variables'=>[
                 'users'=>$users,
                 'errors'=>$errors,
-                
+                'role'=>$this->authentication->isLoggedIn()?$this->authentication->getRole():"",
             ]
         ];
     }
     public function dashboard(){
         $users = $this->userTable->findAll();
         $stores = $this->storeTable->findAll();
-        
         return [
             'template' => 'dashboard.html.php',
             'title' => 'Admin Dashboard',
             'variables' => [
                 'users' => $users,
                 'stores' => $stores,
+                'role'  =>$this->authentication->getRole(),
             ]
         ];
         

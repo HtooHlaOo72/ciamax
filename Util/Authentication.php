@@ -32,12 +32,7 @@ class Authentication {
             return false;
         }
     }
-    public function changePassword($name,$password,$new_password):bool {
-        if($this->isLoggedIn()){
-            
-        }
-        return false;
-    }
+    
 
     public function logout() {
         unset($_SESSION['username']);
@@ -58,6 +53,14 @@ class Authentication {
 	    return null;
 	  }
 	}
+    public function getRole(): ?int {
+        if ($this->isLoggedIn()) {
+          return $this->users->find($this->usernameColumn, strtolower($_SESSION['username']))[0]->role;
+        }
+        else {
+          return null;
+        }
+      }
     private function describeRole($rn):string{ #rn ->role number
         $roles = [
             1 => 'Student',

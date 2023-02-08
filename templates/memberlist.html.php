@@ -18,15 +18,15 @@ endif;
 <div class='uk-container' uk-height-viewport>
     <div class="uk-margin-small-top uk-margin-small-bottom uk-child-width-1-2 uk-grid">
         <div>
-            <h4 style="text-decoration:underline">Students</h4>
+            <h4 style="text-decoration:underline">Members</h4>
         </div>
-        <div>
+        <!-- <div>
             <a class="uk-button uk-button-small uk-button-secondary"
                href="/ciamax/public/user/registrationform">Create New Student</a>
-        </div>
+        </div> -->
     </div>
     <di class="uk-child-width-1-4 uk-grid-match" uk-grid>
-        <?php foreach($users as $user):?>
+        <?php foreach($members as $member):?>
             <div class="uk-card uk-card-hover uk-box-shadow-small" type="button">
                 <?php if(isset($role) and $role==3){ ?>
                     <div class="uk-text-right">
@@ -49,10 +49,10 @@ endif;
                 </div>                    
                 <div class="uk-card-body uk-text-small uk-padding-remove uk-margin-small-bottom smallest_font_size">
                     <div>
-                        Name : <strong><?=$user->name ?></strong>
+                        Name : <strong><?=$member->name ?></strong>
                     </div>
                     <div>
-                        Email   : <strong><?=$user->email ?></strong>
+                        Email   : <strong><?=$member->email ?></strong>
                     </div>
                 </div>
             </div>
