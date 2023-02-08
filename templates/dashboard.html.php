@@ -90,7 +90,7 @@
                                     </div> 
                                 </div>
                                 <div class="uk-card-media-top uk-padding-remove" >
-                                    <img src="http://localhost/ciamax/public/images/canteen_img/student/male_avatar.jpg"  alt="" class='uk-width-expand uk-height-small'>
+                                    <img src="http://localhost/ciamax/public/<?=$user->img??'images/canteen_img/student/male_avatar.jpg'?>"  alt="" class='uk-width-expand uk-height-small'>
                                 </div>                    
                                 <div class="uk-card-body uk-text-small uk-padding-remove uk-margin-small-bottom uk-margin-small-left uk-margin-small-right smallest_font_size">
                                     <div>

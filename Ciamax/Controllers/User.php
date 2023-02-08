@@ -131,6 +131,9 @@ class User {
         if (empty($user['name'])) {
             $errors[] = 'Name cannot be blank';
         }
+        if(empty($user['id'])){
+            $errors[] = "User's id is empty";
+        }
 
         if (empty($user['email'])) {
             $errors[] = 'Email cannot be blank';
@@ -155,6 +158,14 @@ class User {
             $user['password'] = password_hash($user['new_password'], PASSWORD_DEFAULT);
             // When submitted, the $user variable now contains a lowercase value for email
             // and a hashed password
+            if(isset($_FILES['img']) and $_FILES['img']['size']>0){
+                $url = "uploads/user/" . rand(1,10000000) . "_profile_" . $user['id'];
+                $upload_errs = \Ciamax\Ciamax::uploadAndStore('img', $url);
+                if(!empty($upload_errs)){
+                    $errors = [...$errors, ...$upload_errs];
+                }
+                $user['img'] = $url;
+            }
             unset($user['new_password']);
             $this->userTable->save($user);
             header('Location: /ciamax/public/user/success');

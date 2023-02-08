@@ -1,4 +1,5 @@
 <?php
+namespace Ciamax\Controllers;
 use Util\Authentication;
 use Util\DatabaseTable;
 class Menu{
@@ -11,7 +12,6 @@ class Menu{
             'template'=>'addmenu.html.php',
             'title'=>'Add Menu',
             'variables'=>[
-                
             ]
         ];
     }
@@ -29,8 +29,11 @@ class Menu{
         if(!isset($_FILES["img"])){
             $errors[] = 'Menu Photo is empty';
         }
+        $store = $this->storeTable->find('userId',$this->authentication->getUser()->id)[0];
+        if(empty($store)){
+            $errors[] = "Store has not created";
+        }
         if(empty($errors)){
-            $store = $this->storeTable->find('userId',$this->authentication->getUser()->id)[0];
             $menu = [
                 'name' => $_POST['name'],
                 'price' => $_POST['price'],
@@ -39,7 +42,7 @@ class Menu{
             ];
             $newMenu=$this->menuTable->save($menu);
             $url = "uploads/menu/" . $store->id . "_menu_" . $newMenu->id;
-            $upload_errs = $this->uploadAndStore('img', $url);
+            $upload_errs = \Ciamax\Ciamax::uploadAndStore('img', $url);
             if(empty($upload_errs)){
                 $menu['id'] = $newMenu->id;
                 $menu['img'] = $url;

@@ -7,7 +7,7 @@
                         <div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
                             <h3 class="uk-card-title uk-text-center">Store Registration</h3>
                             <form method="POST" action='/ciamax/public/store/register' enctype="multipart/form-data">
-                                <input type='hidden' name="store[id]" value=<?=isset($store->id)?$store->id:"" ?>/>
+                                <input type='hidden' name="store[id]" value='<?=isset($store->id)?$store->id:"" ?>' />
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <label class='uk-form-label' for='name'>Name</label>
@@ -19,7 +19,7 @@
                                     <div class="uk-inline uk-width-1-1">
                                         <label class='uk-form-label' for='img'>Profile Picture</label>
                                         <div class="js-upload" uk-form-custom>
-                                            <input type="file" name='store[img]' id='img'>
+                                            <input type="file" name='img' id='img'>
                                             <button class="uk-button uk-button-default"  type="button" tabindex="-1"><?=isset($store->img)?"Select New":"Select" ?></button>
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <label class='uk-form-label' for='ph_no'>Phone</label>
-                                        <input class="uk-input uk-form-large" type="number"  placeholder="Enter phone number" name="ph_no" value=<?=isset($store->ph_no)?$store->ph_no:"" ?>>
+                                        <input class="uk-input uk-form-large" type="number"  placeholder="Enter phone number" name="store[ph_no]" value=<?=isset($store->ph_no)?$store->ph_no:"" ?>>
                                     </div>
                                 </div>
                                 <div class="uk-margin">
@@ -49,7 +49,7 @@
                                 if (!empty($errors)) :
                                     ?>
                                 <div class="errors">
-                                    <p>Your store could not be created, please check the following:</p>
+                                    <p>please check the following errors:</p>
                                     <ul class='uk-text-danger'>
                                     <?php
                                             foreach ($errors as $error) :

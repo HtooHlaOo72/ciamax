@@ -42,13 +42,24 @@ endif;
                                         <input class="uk-input uk-form-large" type="email" placeholder="example@gmail.com" name="user[email]" id='email' value=<?=isset($user->email)?$user->email :"" ?> >
                                     </div>
                                 </div>
+                                <?php if(isset($is_update) and $is_update){ ?>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline uk-width-1-1">
+                                            <label class='uk-form-label' for='qr_img'>Profile Picture</label>
+                                            <div class="js-upload" uk-form-custom>
+                                                <input type="file" name='img' id='img'>
+                                                <button class="uk-button uk-button-default" type="button" tabindex="-1"><?=isset($user->img)?"Select New":"Select" ?></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon: lock"></span>
                                         <input class="uk-input uk-form-large" type="password" placeholder=<?=(isset($is_update)? "'Old Password'":"'Password'") ?> name="user[password]" id='password'>	
                                     </div>
                                 </div>
-                                <?php if(isset($is_update)){ ?>
+                                <?php if(isset($is_update) and $is_update){ ?>
                                     <div
                                         class='uk-margin'
                                     >

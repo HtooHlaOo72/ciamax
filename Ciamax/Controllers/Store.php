@@ -33,6 +33,77 @@ class Store {
             ]
         ];
     }
+    private function update($old,$new){
+        foreach($old as $key=>$value){
+            $old->$key = (isset($new[$key]) and !empty($new[$key]) and $new[$key]!=$old->$key)? $new[$key] : $old->$key;
+            echo $old->$key;
+        }
+    }
+    public function registerSubmit(){
+        $store = null;
+        $newStore = $_POST["store"];
+        
+        $errors =[];
+        if(!isset($newStore["name"])){
+            $errors[] = "Store name is empty";
+        }
+        if(!isset($newStore["ph_no"])){
+            $errors[] = "Phone number is empty";
+        }
+        
+        if(isset($newStore['id'])){ //check if the user is store owner
+            $store = $this->storeTable->find("id", $newStore["id"])[0];
+            
+            if($store->id != $newStore['id']){
+                $errors[] = "Only Store owner and Admin can update";
+            }
+        }
+        
+        if(count($errors)==0){
+            if(isset($newStore['id'])){
+                $newStore["name"] = (isset($newStore['name']) && $newStore['name'] != $store->name) ? $newStore['name'] : $store->name;
+                $newStore["ph_no"] = (isset($newStore['ph_no']) && $newStore['ph_no'] != $store->ph_no) ? $newStore['ph_no'] : $store->ph_no;
+            }
+            $newStore['userId'] = $this->authentication->getUser()->id;
+            // print_r($newStore);
+
+            $updatedStore=$this->storeTable->save($newStore);
+            $newStore['id'] = $updatedStore->id ?? "";
+            if(isset($_FILES['img']) and $_FILES['img']['size']>0){
+                $url = "uploads/store/" . $updatedStore->id . "_profile_" . $updatedStore->userId;
+                $upload_errs = \Ciamax\Ciamax::uploadAndStore('img', $url);
+                if(!empty($upload_errs)){
+                    $errors = [...$errors, ...$upload_errs];
+                }
+                $newStore['img'] = $url;
+            }
+            if(isset($_FILES['qr_img']) and $_FILES['qr_img']['size']>0){
+                
+                $url = "uploads/store/" . $newStore->id . "_qr_" . $newStore->userId;
+                $upload_errs = \Ciamax\Ciamax::uploadAndStore('qr_img', $url);
+                if(!empty($upload_errs)){
+                    $errors = [...$errors, ...$upload_errs];
+                }
+                $newStore['qr_img'] = $url;
+            }
+            if(count($errors)==0){
+                $this->storeTable->save($newStore);
+                header("Location:/ciamax/public/user/dashboard");
+            }
+            
+        }else{
+            
+            return [
+                'template'=>'storeregister.html.php',
+                'title'=>'Store Register',
+                'variables'=>[
+                    'errors'=>$errors,
+                ]
+            ];
+        }
+        
+        
+    }
     private function uploadAndStore($upload_name,$location='uploads/'):array{
         $errors = [];
         try{
@@ -58,65 +129,7 @@ class Store {
         }
         return $errors;
     }
-    public function registerSubmit(){
-        $errors = [];
-        $user = $this->authentication->getUser();
-        if(isset($_FILES['img']) and isset($_FILES['qr_img'])){
-            $name = $_POST['name'];
-            $ph_no = $_POST['ph_no'];
-            $img = $_FILES["img"];
-            $qr_img = $_FILES['qr_img'];
-            $qr_img["ext"] = pathinfo($qr_img['name'], PATHINFO_EXTENSION);
-            $img["ext"] = pathinfo($img['name'], PATHINFO_EXTENSION);
-            $extensions= array("jpeg","jpg","png");
-        if(!in_array($img['ext'],$extensions) or !in_array($qr_img['ext'],$extensions)){
-            $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-        }
-        
-        if($img['size'] > 5000000 or $qr_img['size']>5000000){#check file larger than 5mb
-            $errors[]='File size must be less than 5 MB';
-        }
-        if(strlen($name)<4){#check store name length less than 4 chars
-            $errors[] = "Store name must be 3 or more characters";
-        }
-        if(empty($ph_no)){
-            $errors[] = "Phone number is empty";
-        }
-        if(empty($errors)){#check if errors are empty and then start upload and store registration
-            $img['url']="uploads/store/profile/".$user->id."_".$name;
-            $qr_img['url']="uploads/store/" .$user->id."_".$name;
-            $uploaded = move_uploaded_file($img['tmp_name'],$img['url'] );
-            if($uploaded){
-                $uploaded=move_uploaded_file($qr_img['tmp_name'],$qr_img['url'] );
-            }
-            if(!$uploaded){
-                $errors[] = "File Upload Error";
-            }else{
-                $store=[
-                    "name"=>$name,
-                    "img"=>$img['url'],
-                    "qr_img"=>$qr_img['url'],
-                    'userId'=>$user->id,
-                ];
-
-                $this->storeTable->save($store);#add store to db
-                header('Location: /ciamax/public/user/dashboard');
-            }
-        }
-        
-        }else{
-            $errors[] = "Incomplete Information";
-        }
-        return [
-            "template"=>"storeregister.html.php",
-            "title"=>"Register Store",
-            'variables'=>[
-                "errors"=>$errors,
-            ]
-        ];
-        
-        
-    }
+    
     public function registerSuccess(){
         return [
             'template'=>'registersuccess.html.php',

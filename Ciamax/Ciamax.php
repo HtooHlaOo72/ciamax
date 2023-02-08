@@ -31,7 +31,7 @@ class Ciamax implements \Util\Website{
     public function getDefaultRoute(): string {
         return '/ciamax/public/user/list';
     }
-    public function uploadAndStore($upload_name,$location='uploads/'):array{
+    public static function uploadAndStore($upload_name,$location='uploads/'):array{
         $errors = [];
         try{
             if(isset($_FILES[$upload_name])){
@@ -62,6 +62,7 @@ class Ciamax implements \Util\Website{
        "user"=>new \Ciamax\Controllers\User($this->userTable,$this->storeTable,$this->menuTable,$this->authentication),
        "login"=>new \Ciamax\Controllers\Login($this->authentication),
        "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable),
+       "menu"=>new \Ciamax\Controllers\Menu($this->menuTable,$this->storeTable,$this->userTable,$this->authentication),
       ];
       
       return $controllers[$controllerName] ?? null;

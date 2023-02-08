@@ -10,7 +10,7 @@
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <label class='uk-form-label' for='name'>Name</label>
-                                        <input class="uk-input" type="text"  placeholder="Enter store name" name="name">
+                                        <input class="uk-input" type="text"  placeholder="Enter menu name" name="name">
                                     </div>
                                 </div>
                                 <div class="uk-margin">
