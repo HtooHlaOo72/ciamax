@@ -4,7 +4,7 @@ use ErrorException;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class Store {
-    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable){
+    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable,private DatabaseTable $userTable){
 
     }
     
@@ -33,12 +33,7 @@ class Store {
             ]
         ];
     }
-    private function update($old,$new){
-        foreach($old as $key=>$value){
-            $old->$key = (isset($new[$key]) and !empty($new[$key]) and $new[$key]!=$old->$key)? $new[$key] : $old->$key;
-            echo $old->$key;
-        }
-    }
+    
     public function registerSubmit(){
         $store = null;
         $newStore = $_POST["store"];
@@ -149,14 +144,15 @@ class Store {
     }
     
 
-    public function profile(){
+    public function profile($id=0){
         // if(!$this->authentication->isLoggedIn()){
         //     header('Location : /ciamax/public/store/list');
         // }
         // $id = $_GET["id"];
         // echo $id . " IS ID";
         $errors=[];
-        $store = $this->storeTable->find('userId',$this->authentication->getUser()->id)[0];
+        $store = $this->storeTable->find('userId',($id)?$id:$this->authentication->getUser()->id)[0];
+        $owner = $this->userTable->find('id',$store->userId)[0];
         $menus = $this->menuTable->find('storeId', $store->id);
         return [
             'template' => "storewall.html.php",
@@ -164,6 +160,7 @@ class Store {
             'variables'=>[
                 "store"=>$store,
                 "menus"=>$menus,
+                "owner"=>$owner,
                 "errors"=>$errors,
             ]
         ];

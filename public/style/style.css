@@ -48,3 +48,6 @@
     font-size: 2em;
     color:black;
 }
+.border-small-black{
+    border:2px solid black !important;
+}

@@ -61,7 +61,7 @@ class Ciamax implements \Util\Website{
       $controllers = [
        "user"=>new \Ciamax\Controllers\User($this->userTable,$this->storeTable,$this->menuTable,$this->authentication),
        "login"=>new \Ciamax\Controllers\Login($this->authentication),
-       "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable),
+       "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable,$this->userTable),
        "menu"=>new \Ciamax\Controllers\Menu($this->menuTable,$this->storeTable,$this->userTable,$this->authentication),
       ];
       

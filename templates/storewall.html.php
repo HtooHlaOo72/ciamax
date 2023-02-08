@@ -1,13 +1,27 @@
 
 <div class='' uk-height-viewport="expand:true" >
 <div class="uk-width-expand uk-background-fixed uk-background-center-center uk-height-medium uk-flex uk-flex-center uk-flex-middle" style="background-image:url(/ciamax/public/images/storewall.jpg);" >
-    <p class='uk-text-large '><?=$store->name?$store->name:"Name is empty" ?></p>
+    <main class='uk-flex-inline'>
+        <div>
+            <img src="http://localhost/ciamax/public/<?=$store->img ?>" alt="" class='uk-border-circle'>
+        </div>
+        <div class='uk-padding-small'>
+        <p class='uk-text-large uk-text-bolder'><?=$store->name?$store->name:"Name is empty" ?></p>
+        <p class='uk-text-default uk-text-bold'>Owner : <?=(isset($owner))?$owner->name:"Name is empty" ?></p>
+        <p class='uk-text-default uk-text-bold'>Phone : <?=$store->ph_no?$store->ph_no:"Name is empty" ?></p>
+        <p class='uk-text-default uk-text-bold'>Total Members : <?=$store->TotalMembers() ?></p>
+        <a href="" class='uk-button uk-button-small uk-button-secondary'>
+            Join Membership
+        </a>
+        </div>
+        
+    </main>
 </div>
 
-<ul class="uk-subnav uk-subnav-pill uk-child-width-1-3" uk-switcher="animation: uk-animation-fade" uk-grid>
-    <li><a href="#" class='uk-flex uk-flex-center'>Menus</a></li>
-    <li><a href="#" class='uk-flex uk-flex-center'>Members</a></li>
-    <li><a href="#" class='uk-flex uk-flex-center'>Store Info</a></li>
+<ul class="uk-subnav uk-subnav-pill uk-child-width-1-3 uk-margin-small-top" uk-switcher="animation: uk-animation-fade" uk-grid>
+    <li><a href="#" style="border:2px dotted black" class='uk-flex uk-flex-center'>Menus</a></li>
+    <li><a href="#" style="border:2px dotted black" class='uk-flex uk-flex-center'>Members</a></li>
+    <li><a href="#" style="border:2px dotted black" class='uk-flex uk-flex-center'>Store Info</a></li>
 </ul>
 
 <ul class="uk-switcher uk-margin">
