@@ -61,7 +61,7 @@ class Authentication {
           return null;
         }
       }
-    private function describeRole($rn):string{ #rn ->role number
+    public static function describeRole($rn):string{ #rn ->role number
         $roles = [
             1 => 'Student',
             2 => 'Store Owner',

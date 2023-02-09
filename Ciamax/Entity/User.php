@@ -1,5 +1,8 @@
 <?php
 namespace Ciamax\Entity;
+
+use Util\Authentication;
+
 class User {
     public $id;
     public $name;
@@ -12,6 +15,9 @@ class User {
     }
     public function getRole(){
         return $this->role;
+    }
+    public function getRoleName(){
+        return Authentication::describeRole($this->role);
     }
 
     public function changeInfo($key,$value){
