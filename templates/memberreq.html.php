@@ -1,21 +1,3 @@
-
-<?php
-if (!empty($errors)) :
-    ?>
-  <div class="errors">
-    <p>Your account could not be created, please check the following:</p>
-    <ul>
-    <?php
-            foreach ($errors as $error) :
-                ?>
-        <li><?= $error ?></li>
-        <?php
-            endforeach; ?>
-    </ul>
-  </div>
-<?php
-endif;
-?>
 <div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
         <div class="uk-width-1-1">
             <div class="uk-container">
@@ -28,16 +10,16 @@ endif;
                                     <label for="roll_no">Student ID :</label>
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon: info"></span>
-                                        <input class="uk-input uk-form-large" type="text"  placeholder="UIT-xxxx" name="req[roll_no]" value="<?=isset($req->roll_no)?$user->name : '' ?>">
+                                        <input class="uk-input uk-form-large" type="text"  placeholder="UIT-xxxx" name="req[roll_no]" value="<?=isset($req->roll_no)?$user->name : '' ?>" />
                                     </div>
                                 </div>
-                                <input type='hidden' name="req[id]" id='id' value=<?=$user->id??"" ?> />
+                                <input type='hidden' name="req[userId]" id='id' value='<?=isset($user)?$user->id:"" ?>' />
                                 
                                 <div class="uk-margin uk-text-small">
                                     <label for="days">Number of days</label>
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon: star"></span>
-                                        <input class="uk-input uk-form-large" type="number" placeholder="example@gmail.com" name="req[days]" id='days' value=<?=isset($req->days)?$req->days :30 ?> >
+                                        <input class="uk-input uk-form-large" type="number" placeholder="example@gmail.com" name="req[days]" id='days' value='<?=isset($req->days)?$req->days :30 ?>' />
                                     </div>
                                 </div>
                                 
@@ -55,7 +37,7 @@ endif;
                                     <label for="amount">Transaction ID</label>
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon: star"></span>
-                                        <input class="uk-input uk-form-large" type="number" placeholder="Transaction ID" name="req[amount]" id='amount' value=<?=isset($req->amount)?$req->amount :"" ?> >
+                                        <input class="uk-input uk-form-large" type="number" placeholder="Transaction ID" name="req[transaction_id]" id='amount' value='<?=isset($req->amount)?$req->amount :"" ?>' />
                                     </div>
                                 </div>
                                 <div class="uk-margin uk-text-small">
@@ -81,6 +63,15 @@ endif;
                                     <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" type='submit'>Submit</button>
                                 </div>   
                             </form>
+                            <div>
+                                <?php if(!empty($errors)): ?>
+                                    <?php foreach ($errors as $error): ?>
+                                    <div class='uk-alert uk-alert-danger'>
+                                        <?=$error ?>
+                                    </div>
+                                    <?php endforeach ?>
+                                <?php endif?>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,8 @@
 <?php
 namespace Ciamax\Entity;
+
+use Util\DatabaseTable;
+
 class Member extends User {
     public $id;
     public $left_times;
@@ -10,7 +13,7 @@ class Member extends User {
     public $userId;
     public $storeId;
 
-    public function __construct(){
+    public function __construct(private DatabaseTable $userTable){
 
     }
     
@@ -24,5 +27,8 @@ class Member extends User {
     
     public function getStore(){
 
+    }
+    public function getUser(){
+        return $this->userTable->find("id", $this->userId)[0];
     }
 }

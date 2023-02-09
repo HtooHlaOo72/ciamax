@@ -5,13 +5,15 @@ use Util\DatabaseTable;
 class Request {
     public $id;
     public $userId;
+    public $roll_no;
     public $storeId;
     public $days;
     public $amount;
+    public $kpay_ss;
+    public $transaction_id;
     public $start_date;
     public $is_accepted;
-    public $is_paid;
-
+    
     public function __construct(private DatabaseTable $memberTable,private Authentication $authentication){
 
     }

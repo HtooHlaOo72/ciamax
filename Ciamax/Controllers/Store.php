@@ -67,7 +67,6 @@ class Store {
             $updatedStore=$this->storeTable->save($newStore);
             $newStore['id'] = $updatedStore->id ?? "";
             if(isset($_FILES['img']) and $_FILES['img']['size']>0){
-                echo "IMG";
                 $url = "uploads/store/" . $updatedStore->id . "_profile_" . $updatedStore->userId;
                 $upload_errs = \Ciamax\Ciamax::uploadAndStore('img', $url);
                 if(!empty($upload_errs)){
@@ -162,12 +161,14 @@ class Store {
         }
         $owner = $this->userTable->find('id',$store->userId)[0];
         $menus = $this->menuTable->find('storeId', $store->id);
+        
         return [
             'template' => "storewall.html.php",
             'title' => 'Store',
             'variables'=>[
                 "store"=>$store,
                 "menus"=>$menus,
+                "members"=>$store->getMembers(),
                 "owner"=>$owner,
                 "errors"=>$errors,
             ]

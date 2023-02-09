@@ -17,7 +17,7 @@ class Store {
         return $this->userTable->find("id", $this->userId)[0];
     }
     public function getMembers(){
-
+        return $this->memberTable->find('storeId', $this->id);
     }
     public function getMenus(){
 
