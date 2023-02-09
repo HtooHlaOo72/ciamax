@@ -1,4 +1,7 @@
 <?php
+
+use Util\Authentication;
+
 if (!empty($errors)) :
     ?>
   <div class="errors">

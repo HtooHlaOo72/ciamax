@@ -4,7 +4,7 @@ use ErrorException;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class Store {
-    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable,private DatabaseTable $userTable){
+    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable,private DatabaseTable $userTable,private DatabaseTable $requestTable){
 
     }
     
@@ -174,11 +174,18 @@ class Store {
             ]
         ];
     }
-    public function validatePayment($id){
-
+    public function validateRequest($storeId=null){
+        $requests = $this->requestTable->findAll();
+        return [
+            "template"=>"requestlist.html.php",
+            "title"=>"Requests",
+            "variables"=>[
+                "requests"=>$requests
+            ]
+        ];
     }
 
-    public function validatePaymentSubmit(){
+    public function validateRequestSubmit(){
 
     }
     public function provideMeal(){

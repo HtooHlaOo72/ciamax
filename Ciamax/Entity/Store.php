@@ -9,7 +9,7 @@ class Store {
     public $qr_img;
     public $userId;
     
-    public function __construct(private DatabaseTable $userTable,private ?DatabaseTable $memberTable,private ?DatabaseTable $menutable,private ?DatabaseTable $menuHistoryTable){
+    public function __construct(private DatabaseTable $userTable,private ?DatabaseTable $memberTable,private ?DatabaseTable $menutable){
 
     }
 
