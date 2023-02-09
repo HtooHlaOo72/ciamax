@@ -51,3 +51,9 @@
 .border-small-black{
     border:2px solid black !important;
 }
+.toggle-hidden{
+    display: none !important;
+}
+.toggle-show{
+    display:block !important;
+}

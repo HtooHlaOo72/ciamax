@@ -72,9 +72,7 @@ endif;
                                 <div class="uk-margin">
                                     <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" type='submit'><?=(isset($is_update))?"Submit":"Register" ?></button>
                                 </div>
-                                <div class="uk-text-small uk-text-center">
-                                    Not registered? <a href="/ciamax/public/user/registrationform">Create an account</a>
-                                </div> 
+                               
                             </form>
                         </div>
                     </div>

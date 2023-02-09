@@ -22,6 +22,21 @@ class User {
             ]
         ];
     }
+    public function home(){
+        $stores = $this->storeTable->findAll();
+        $menus = $this->menuTable->findAll();
+        if(count($menus)>6){
+            $menus=array_slice($menus,0,6);
+        }
+        return [
+            "template"=>'home.html.php',
+            "title"=>"Home",
+            "variables"=>[
+                "stores"=>$stores,
+                "menus"=>$menus,
+            ]
+        ];
+    }
     public function dashboard(){
         $users = $this->userTable->findAll();
         $stores = $this->storeTable->findAll();
@@ -186,9 +201,6 @@ class User {
     
 
     public function menuList(){
-
-    }
-    public function home(){
 
     }
     public function subscribe(){

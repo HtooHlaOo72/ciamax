@@ -28,7 +28,7 @@
                         <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Profile</a></li>
-                                <li><a href="#">Log out</a></li>
+                                <li><a href="/ciamax/public/login/logout">Log out</a></li>
                             </ul>
                         </div>
                     </li>

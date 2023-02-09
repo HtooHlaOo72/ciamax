@@ -33,7 +33,7 @@ class Login {
 
     public function logout() {
         $this->authentication->logout();
-        header('location: /ciamax/public/user/list');
+        header('location: /ciamax/public/user/home');
     }
 
     

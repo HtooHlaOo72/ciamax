@@ -32,7 +32,7 @@ class Ciamax implements \Util\Website{
     }
 
     public function getDefaultRoute(): string {
-        return '/ciamax/public/user/list';
+        return '/ciamax/public/user/home';
     }
     public static function uploadAndStore($upload_name,$location='uploads/'):array{
         $errors = [];
