@@ -6,6 +6,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/css/uikit.min.css" />
 	    <link rel="stylesheet" href="/ciamax/public/style/style.css" />
         <script src="uikit/dist/js/uikit-icons.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600&display=swap" rel="stylesheet">
     </head>
 	<body>
     <header class="">
