@@ -25,7 +25,7 @@ endif;
         </div>
         <div>
         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded uk-float-right"
-            href='/ciamax/public/store/register'
+            href='/ciamax/public/user/registrationform'
         >Create New User</a>
         </div>
     </div>                    

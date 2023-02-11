@@ -182,7 +182,6 @@ class Store {
         }else{
             $requests = $this->requestTable->findAll();
         }
-       
         return [
             "template"=>"requestlist.html.php",
             "title"=>"Requests",
@@ -198,7 +197,7 @@ class Store {
         try{
         $id = $_POST['id'];
         $action =$_POST['action'];
-
+        
         $request= $this->requestTable->find("id",$id);
         if(count($request)!=0){
             $request=$request[0];
@@ -220,7 +219,13 @@ class Store {
         ];
     }
     public function provideMeal(){
-
+        return [
+            "template"=>"providemeal.html.php",
+            "title"=>"providemeal",
+            "variables"=>[
+                
+            ]
+            ];
     }
     public function provideMealSubmit(){
         

@@ -1,4 +1,4 @@
-<div class='uk-container'>
+<div class='uk-container' style='min-width:90vh;'>
 <h3 class='uk-h3'><span style='text-decoration:underline;'>Requests</span></h3>
 <table class="uk-table uk-table-justify uk-table-divider">
     <thead>
@@ -9,8 +9,8 @@
             <!-- <th>Transferred Amount</th> -->
             <!-- <th>Transaction ID</th> -->
             <th>Status</th>
-            <th>Detail</th>
             <th>Action</th>
+            <th>Detail</th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +37,7 @@
                     echo $status;
                 ?>
             </td>
-            <td><a href="#" class='uk-button uk-button-small uk-button-secondary'>Detail</a></td>
+            
             <td>
                 <form
                     action=""
@@ -46,8 +46,8 @@
                     class='uk-display-inline'
                 >
                     <input type='hidden' name='id' value="<?=$request->id??'d' ?>"/>
-                    <input type='hidden' name="action" value="accepted" />
-                    <input type='submit' disabled=<?=$request->is_accepted?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
+                    <input type='hidden' name="action" value="is_accepted" />
+                    <input type='submit' <?=($request->is_accepted or $request->is_rejected)?'disabled':'' ?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
                 </form>
                 <form
                     action=""
@@ -56,12 +56,13 @@
                     class='uk-display-inline'
                 >
                     <input type='hidden' name='id' value="<?=$request->id??'d' ?>"/>
-                    <input type='hidden' name="action" value="rejected" />
-                    <input type='submit' disabled=<?=$request->is_rejected ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
+                    <input type='hidden' name="action" value="is_rejected" />
+                    <input type='submit' <?=($request->is_accepted or $request->is_rejected)?'disabled':"" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
                 </form>
                 
                 
             </td>
+            <td><a href="#" class='uk-button uk-button-small uk-button-secondary'>Detail</a></td>
         </tr>
         <?php endforeach ?>
     </tbody>

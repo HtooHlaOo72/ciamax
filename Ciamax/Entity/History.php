@@ -8,8 +8,9 @@ class History{
 
     public $date;
 
+    public $status;
+    public $type;
     public function __construct(DatabaseTable $memberTable,DatabaseTable $menutable){
 
     }
-
 }
