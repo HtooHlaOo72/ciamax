@@ -11,7 +11,7 @@ class Request {
     public $amount;
     public $kpay_ss;
     public $transaction_id;
-    public $start_date;
+    public $date;
     public $is_accepted;
     public $is_rejected;
     
@@ -19,18 +19,22 @@ class Request {
 
     }
     
-    public function acceptRequest():bool {
+    public function validate($action):bool {
         $req = $this->requestTable->find('id', $this->id);
-        if(!empty($req)){
+        if(count($req)>0){
             $req = $req[0];
         }
-        $req->is_accepted = true;
+        $req->$action = true;
+        $req=json_decode(json_encode($req),true);
+        // print_r($req);
         $successReq=$this->requestTable->save($req);
         if($successReq){
             return true;
         }
         return false;
     }
+
+    
     public function getUser(){
         $user=$this->userTable->find('id',$this->userId);
        

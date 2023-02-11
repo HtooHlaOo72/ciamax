@@ -1,6 +1,7 @@
 <?php
 namespace Ciamax\Controllers;
 use ErrorException;
+use Exception;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class Store {
@@ -175,7 +176,13 @@ class Store {
         ];
     }
     public function validateRequest($storeId=null){
-        $requests = $this->requestTable->findAll();
+        $requests=[];
+        if($storeId){
+            $requests = $this->requestTable->find('storeId',$storeId);
+        }else{
+            $requests = $this->requestTable->findAll();
+        }
+       
         return [
             "template"=>"requestlist.html.php",
             "title"=>"Requests",
@@ -187,6 +194,30 @@ class Store {
 
     public function validateRequestSubmit(){
 
+        $errors=[];
+        try{
+        $id = $_POST['id'];
+        $action =$_POST['action'];
+
+        $request= $this->requestTable->find("id",$id);
+        if(count($request)!=0){
+            $request=$request[0];
+        }
+        $success=$request->validate($action);
+        if(!$success){
+            $errors[]="$action action is failed!";
+        }
+        }catch(Exception $e){
+            $errors[]=$e->getMessage();
+        }
+        $requests = $this->requestTable->findAll();
+        return [
+            "template"=>"requestlist.html.php",
+            "title"=>"Requests",
+            "variables"=>[
+                'requests'=>$requests,
+            ]
+        ];
     }
     public function provideMeal(){
 
