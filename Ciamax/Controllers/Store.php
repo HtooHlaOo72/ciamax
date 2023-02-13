@@ -1,11 +1,13 @@
 <?php
 namespace Ciamax\Controllers;
+
+use Ciamax\Ciamax;
 use ErrorException;
 use Exception;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class Store {
-    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable,private DatabaseTable $userTable,private DatabaseTable $requestTable){
+    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable,private DatabaseTable $userTable,private DatabaseTable $requestTable,private DatabaseTable $historyTable){
 
     }
     
@@ -218,17 +220,101 @@ class Store {
             ]
         ];
     }
-    public function provideMeal(){
+    public function provideMeal($storeId=null){
+        echo Ciamax::today();
+        $errors = [];
+        $menus=$members=$store=null;
+        $types = ["lunch","dinner"];
+        if(!$storeId){
+            $errors[]="Store ID not found";
+        }else{
+            $menus = $this->menuTable->find('storeId',$storeId,"id");
+            $store = $this->storeTable->find('id',$storeId)[0];
+            $members=$store->getMembers();
+        }
+        
         return [
             "template"=>"providemeal.html.php",
             "title"=>"providemeal",
             "variables"=>[
-                
+                "errors"=>$errors,
+                "menus"=>$menus,
+                "store"=>$store,
+                "members"=>$members,
+                "types"=>$types,
             ]
             ];
     }
-    public function provideMealSubmit(){
+    
+    public function provideMealSubmit($storeId=null){
+        $errors = [];
+        $menus=$member=$members=$store=$historyObj=$msg=null;
+        $types = ["lunch","dinner"];
+        $history = $_POST["history"];
         
+        if(!$storeId){
+            $errors[]="Store ID not found";
+        }
+        if(empty($history["roll_no"])){
+            $errors[]="Roll number is empty";
+        }
+        if(empty($history["type"])){
+            $errors[]="type is empty";
+        }
+        if(count($errors)==0){
+            $history['roll_no']=strtolower($history['roll_no']);//convert roll number to lower case
+            $member = $this->memberTable->find('roll_no',$history['roll_no']);//find member by roll_no
+            
+            if(count($member)>0){
+                $member = $member[0];
+                $history['memberId']=$member->id;
+                $history['status']="pending";
+                $history["date"]=Ciamax::today();
+                echo $history['date']." <<--";
+
+            }else{
+                $errors[] = "Invalid student ID ('Member not exist')";
+            }
+
+            $historyObj=$this->historyTable->save($history);
+        }
+        if(count($errors)==0){
+            try{
+            $history['roll_no']=strtolower($history['roll_no']);//convert roll number to lower case
+            $member = $this->memberTable->find('roll_no',$history['roll_no']);//find member by roll_no
+
+            if(count($member)>0){
+                $member = $member[0];
+                
+                $checkToday = $member->checkTodayMeal($history['type']);
+                if(!$checkToday){
+                    $errors[]="{$history['type']} has already been provided!";
+                }
+            }
+            }catch(Exception $e){
+                $errors[]="Error in today check";
+            }
+        }
+        
+        if(count($errors)==0 and !is_null($historyObj)){
+            $menus = $this->menuTable->find('storeId',$storeId,"id");
+            $store = $this->storeTable->find('id',$storeId)[0];
+            $members=$store->getMembers();
+            $msg = "{$history['type']} Provided to $member->roll_no!";
+        }
+       
+        return [
+            "template"=>"providemeal.html.php",
+            "title"=>"providemeal",
+            "variables"=>[
+                "errors"=>$errors,
+                "menus"=>$menus,
+                "store"=>$store,
+                "members"=>$members,
+                "types"=>$types,
+                "msg"=>$msg,
+            ]
+            ];
     }
     
 }

@@ -1,4 +1,6 @@
 <?php
+namespace Ciamax\Entity;
+
 use Util\DatabaseTable;
 class History{
     public $id;
@@ -13,4 +15,5 @@ class History{
     public function __construct(DatabaseTable $memberTable,DatabaseTable $menutable){
 
     }
+    
 }

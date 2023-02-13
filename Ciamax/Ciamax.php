@@ -1,11 +1,12 @@
 <?php
 namespace Ciamax;
+
+use DateTimeZone;
 use Util\DatabaseTable;
 class Ciamax implements \Util\Website{
     private ?\Util\DatabaseTable $userTable;
     private ?\Util\DatabaseTable $storeTable;
     private ?\Util\DatabaseTable $menuTable;
-    private ?DatabaseTable $menuHistoryTable;
     private ?\Util\DatabaseTable $memberTable;
     private ?\Util\DatabaseTable $historyTable;
     private ?DatabaseTable $requestTable;
@@ -16,10 +17,10 @@ class Ciamax implements \Util\Website{
        
         $this->userTable = new \Util\DatabaseTable($pdo,'user','id','\Ciamax\Entity\User');
         $this->menuTable = new \Util\DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
-        $this->memberTable = new \Util\DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable]);
-        $this->menuHistoryTable = new DatabaseTable($pdo, "MenuHistory", 'id', '\Ciamax\Entity\MenuHistory',[&$this->memberTable]);
-        $this->storeTable = new \Util\DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable]);
+        $this->memberTable = new \Util\DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
+        $this->storeTable = new \Util\DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->historyTable]);
         $this->requestTable = new DatabaseTable($pdo, 'request', 'id', '\Ciamax\Entity\Request', [&$this->requestTable,&$this->userTable, &$this->authentication]);
+        $this->historyTable = new DatabaseTable($pdo,'history','id','\Ciamax\Entity\History',[&$this->memberTable,&$this->menuTable]);
         $this->authentication = new \Util\Authentication($this->userTable,'email','password');
     }
     public function getLayoutVariables(): array {
@@ -64,7 +65,7 @@ class Ciamax implements \Util\Website{
       $controllers = [
        "user"=>new \Ciamax\Controllers\User($this->userTable,$this->storeTable,$this->menuTable,$this->authentication),
        "login"=>new \Ciamax\Controllers\Login($this->authentication),
-       "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable,$this->userTable,$this->requestTable),
+       "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable,$this->userTable,$this->requestTable,$this->historyTable),
        "menu"=>new \Ciamax\Controllers\Menu($this->menuTable,$this->storeTable,$this->userTable,$this->authentication),
        "member"=>new \Ciamax\Controllers\Member($this->authentication,$this->userTable,$this->storeTable,$this->memberTable,$this->requestTable),
       ];
@@ -88,5 +89,9 @@ class Ciamax implements \Util\Website{
             }
         }
         return $uri;
+    }
+    public static function today(){
+        date_default_timezone_set('Asia/Yangon');
+        return date('d-m-Y');
     }
 }

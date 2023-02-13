@@ -64,6 +64,7 @@ class Member{
             $errors[] = "Kpay screenshot is empty";
         }
         if(count($errors)==0){
+            $request = strtolower($request['roll_no']);
             $requestObj = $this->requestTable->save($request);
             if(!empty($requestObj)){
                 try {
