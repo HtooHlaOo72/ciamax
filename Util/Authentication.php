@@ -75,7 +75,10 @@ class Authentication {
         }
        
     }
-    public function getRoleName():string{
-        return $this->describeRole($this->getUser() && $this->getUser()->role);
+    public function getRoleName():?string{
+        if($this->isLoggedIn()){
+            return $this->describeRole($this->getRole());
+        }
+       return null;
     }
 }
