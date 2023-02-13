@@ -1,4 +1,0 @@
-user role 
-1=signed in user
-2=shop owner
-3=admin

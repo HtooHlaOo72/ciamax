@@ -57,18 +57,27 @@
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav uk-visible@s">
-                    <li><a class="uk-text-large" href="/ciamax/public/user/home"style='color:#fff;'>Home</a></li>
-                    <li><a class="uk-text-large" href="/ciamax/public/store/list"style='color:#fff;'>Stores</a></li>
-                    <li><a class="uk-text-large" href="/ciamax/public/menu/list"style='color:#fff;'>Menus</span></a></li>
-                    <li>
-                        <a class="uk-text-large" href="/ciamax/public/login/login" style='color:#fff;'><?=(!empty($profile->name))?$profile->name." ($role) " :"Login"; ?></a>
-                        <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
-                            <ul class="uk-nav uk-dropdown-nav">
-                                <li class="uk-active"><a href="#">Profile</a></li>
-                                <li><a href="#">Log out</a></li>
-                            </ul>
-                        </div>
-                    </li>
+
+                    <?php foreach($urlList as $url_name=>$url): ?>
+                        <?php if($url_name=="DropDown"): ?>
+                            <li>
+                                <button type='button' style='color:#fff;'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
+                                <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <?php foreach($url['sub_url_list'] as $sub_name=>$sub_url): ?>
+                                            <li class=""><a href="/ciamax/public/<?=$sub_url??'user/home' ?>"><?=$sub_name??"empty" ?></a></li>
+                                        <?php endforeach ?>
+                                    </ul>
+                                </div>
+                            </li>
+                        <?php else: ?>
+                            <li><a class="uk-text-large" href="/ciamax/public/<?=$url??'user/home' ?>"style='color:#fff;'><?=$url_name??"empty" ?></a></li>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                    
+                    <!-- <li><a class="uk-text-large" href="/ciamax/public/store/list"style='color:#fff;'>Stores</a></li>
+                    <li><a class="uk-text-large" href="/ciamax/public/menu/list"style='color:#fff;'>Menus</span></a></li> -->                    
+                    
 
                 </ul>
                 <a href="#" class="uk-navbar-toggle uk-hidden@s" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>

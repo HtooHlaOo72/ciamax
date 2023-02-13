@@ -160,8 +160,9 @@ class Store {
         if($id){
             $store = $this->storeTable->find('id',$id)[0];
         }else{
-            $store = $this->storeTable->find('userId', $this->authentication->getUser()->id)[0];
+            $store = $this->storeTable->find('userId', $this->authentication->getUser()->id)[0];//find logged in user's store
         }
+        // $owner =$this->authentication->getUser();
         $owner = $this->userTable->find('id',$store->userId)[0];
         $menus = $this->menuTable->find('storeId', $store->id);
         

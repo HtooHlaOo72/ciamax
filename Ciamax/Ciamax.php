@@ -11,27 +11,75 @@ class Ciamax implements \Util\Website{
     private ?\Util\DatabaseTable $historyTable;
     private ?DatabaseTable $requestTable;
     private ?\Util\Authentication $authentication;
-
+    private ?string $drop_down_name;
     public function __construct(){
         $pdo = new \PDO('mysql:host=localhost;dbname=ciamax2','root','rootcms');
-       
-        $this->userTable = new \Util\DatabaseTable($pdo,'user','id','\Ciamax\Entity\User');
-        $this->menuTable = new \Util\DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
-        $this->memberTable = new \Util\DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
-        $this->storeTable = new \Util\DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->historyTable]);
+        $this->userTable = new DatabaseTable($pdo,'user','id','\Ciamax\Entity\User');
+        $this->menuTable = new DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
+        $this->memberTable = new DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
+        $this->storeTable = new DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->historyTable]);
         $this->requestTable = new DatabaseTable($pdo, 'request', 'id', '\Ciamax\Entity\Request', [&$this->requestTable,&$this->userTable, &$this->authentication]);
         $this->historyTable = new DatabaseTable($pdo,'history','id','\Ciamax\Entity\History',[&$this->memberTable,&$this->menuTable]);
         $this->authentication = new \Util\Authentication($this->userTable,'email','password');
+       
     }
     public function getLayoutVariables(): array {
+        if($this->authentication->isLoggedIn() and $this->authentication->getRole()!=0){
+            $this->drop_down_name=$this->authentication->getUser()->name." (".$this->authentication->getRoleName()." )";
+        }
+        $urlList = $this->authentication->isLoggedIn()?$this->getNavUrlListByRole($this->authentication->getRole()):$this->getNavUrlListByRole(0);
         return [
             'loggedIn' => $this->authentication->isLoggedIn(),
             'profile'=>$this->authentication->getUser(),
             'role'=>($this->authentication->getUser())?$this->authentication->getRoleName():"",
             'roleNum'=>($this->authentication->isLoggedIn())?$this->authentication->getRole():"",
+            'urlList'=>$urlList,
+            'drop_down_name'=>(isset($this->drop_down_name) and !empty($this->drop_down_name))?$this->drop_down_name:"",
         ];
     }
-
+    public function getNavUrlListByRole($role): array {
+       
+        
+        $urlList = [
+            0=>[
+                "Home"=>"user/home",
+                "Stores"=>"store/list",
+                "Menus"=>"menu/list",
+                "Login"=>"login/login",
+            ],
+            1=>[
+                "Home"=>"user/home",
+                "Stores"=>"store/list",
+                "Menus"=>"menu/list",
+                "DropDown"=>[
+                    "sub_url_list"=>[
+                        "Profile"=>"user/profile",
+                        "Logout"=>"login/logout",
+                    ]
+                ],
+            ],
+            2=>[
+                "Home"=>"user/home",
+                "Stores"=>"store/list",
+                "Menus"=>"menu/list",
+                "DropDown"=>[
+                    "sub_url_list"=>[
+                        "Profile"=>"store/profile",
+                        "Logout"=>"login/logout"
+                    ]
+                ],
+               
+            ],
+            3=>[
+                "Home"=>"user/home",
+                "Dashboard"=>"user/dashboard",
+                "Stores"=>"store/list",
+                "Menus"=>"menu/list",
+                "Logout"=>"login/logout",
+            ],
+        ];
+        return $urlList[$role];
+    }
     public function getDefaultRoute(): string {
         return '/ciamax/public/user/home';
     }
