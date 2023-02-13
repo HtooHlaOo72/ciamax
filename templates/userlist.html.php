@@ -18,14 +18,14 @@ if (!empty($errors)) :
 <?php
 endif;
 ?>
-<div class='uk-container' uk-height-viewport>
+<div class='uk-container' uk-height-viewport style="background-color:#8dc9d7">
     <div class="uk-margin-small-top uk-margin-small-bottom uk-child-width-1-2 uk-grid">
         <div>
-        <h4 style="text-decoration:underline">Users</h4>
+        <h4 style="text-decoration:underline;color:#000">Users</h4>
         </div>
         <div>
         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded uk-float-right"
-            href='/ciamax/public/user/registrationform'
+            href='/ciamax/public/store/register' style="background-color:#2d7484;color:#fff;"
         >Create New User</a>
         </div>
     </div>                    
@@ -33,7 +33,7 @@ endif;
         <div class="uk-child-width-1-2 uk-child-width-1-4@m uk-grid-match uk-grid-small" uk-grid>
             <?php foreach($users as $user):?>
             <div>
-                <div class="uk-card uk-card-hover uk-padding-remove uk-border-rounded" style="border-top:5px solid black;border-bottom:5px solid black;max-width:250px;">
+                <div class="uk-card card uk-padding-remove uk-border-rounded">
                     <?php if($role==3){ ?>
                     <div class="uk-text-right">
                         <span class='uk-margin-small-right' uk-icon="more" type="button"></span>
@@ -62,7 +62,7 @@ endif;
                         </a>
                     </div>                    
                     <div class="uk-card-body smallest_font_size uk-padding-remove uk-margin-small-bottom" uk-accordion>
-                        <h3 class="uk-margin-small-left uk-margin-small-right uk-card-title uk-text-small "><?=$user->name ?> </h3>
+                        <p class="uk-margin-small-left uk-margin-small-right uk-card-title uk-text-small " ><?=$user->name ?> </p>
                         <div class="" id="info">
                             <p class='uk-margin-small-left uk-margin-small-right' >Role     : <?=$user->getRoleName()??"<span class='uk-text-danger'>empty role</span>" ?></p>
                             <p class='uk-margin-small-left uk-margin-small-right' >Email  : <?=$user->email??"empty email" ?></p>

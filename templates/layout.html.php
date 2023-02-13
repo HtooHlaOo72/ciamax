@@ -6,32 +6,66 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/css/uikit.min.css" />
 	    <link rel="stylesheet" href="/ciamax/public/style/style.css" />
         <script src="uikit/dist/js/uikit-icons.min.js"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600&display=swap" rel="stylesheet">
+        <style>
+    ::placeholder{
+        color:#000;
+    }
+    .card:hover{
+        background-color:#fff;
+        color:#000
+    }
+    .card{
+        background-color:#034250;
+        color:#fff;
+        max-width:250px;
+        border-top: 5px solid #2d7484;
+        border-bottom:5px solid #2d7484;
+        border-radius:5px;
+    }
+    .subnav-pill > * > :first-child {
+  padding: 5px 10px;
+  background-color: #034250;
+  color: #fff;
+}
+/* Hover */
+.subnav-pill > * > a:hover {
+  background-color: #f8f8f8;
+  color: #000;
+}
+/* OnClick */
+.subnav-pill > * > a:active {
+  background-color: #f8f8f8;
+  color: #000;
+}
+/* Active */
+.subnav-pill > .uk-active > a {
+  background-color: #1e87f0;
+  color: #fff;
+}
+</style>
     </head>
 	<body>
     <header class="">
         <!-- Main Navbar -->
-        <nav class="uk-container uk-navbar">
+        <nav class="uk-container uk-navbar" style="background-color:#2d7484;">
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
                     <li class="uk-active ">
-                        <a href="/ciamax/public/user/list" ><strong class="logo_text">Ciamax</strong></a>
+                        <a href="/ciamax/public/user/list" style='color:#fff;'><strong class="logo_text">Ciamax</strong></a>
                     </li>
                 </ul>
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav uk-visible@s">
-                    <li><a class="uk-text-large" href="/ciamax/public/user/home">Home</a></li>
-                    <li><a class="uk-text-large" href="/ciamax/public/store/list">Stores</a></li>
-                    <li><a class="uk-text-large" href="/ciamax/public/menu/list">Menus</span></a></li>
+                    <li><a class="uk-text-large" href="/ciamax/public/user/home"style='color:#fff;'>Home</a></li>
+                    <li><a class="uk-text-large" href="/ciamax/public/store/list"style='color:#fff;'>Stores</a></li>
+                    <li><a class="uk-text-large" href="/ciamax/public/menu/list"style='color:#fff;'>Menus</span></a></li>
                     <li>
-                        <a class="uk-text-large" href="/ciamax/public/login/login" style='color:blue;'><?=(!empty($profile->name))?$profile->name." ($role) " :"Login"; ?></a>
+                        <a class="uk-text-large" href="/ciamax/public/login/login" style='color:#fff;'><?=(!empty($profile->name))?$profile->name." ($role) " :"Login"; ?></a>
                         <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li class="uk-active"><a href="#">Profile</a></li>
-                                <li><a href="/ciamax/public/login/logout">Log out</a></li>
+                                <li><a href="#">Log out</a></li>
                             </ul>
                         </div>
                     </li>
@@ -41,7 +75,7 @@
             </div>
         </nav>
     </header>
-    <div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas">
+    <div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas" style="background-color:#2d7484;">
         <div class="uk-offcanvas-bar">
             <ul class="uk-nav">
                 <li><a class="uk-text-large" href="/">Home</a></li>
@@ -52,7 +86,7 @@
         </div>
     </div>
     <?=$output ?>
-    <footer class="uk-text-center uk-text-middle uk-margin-small-top">
+    <footer class="uk-text-center uk-text-middle " style="background-color : #2d7484; color : #FFF">
         Copy Right©uit.edu.mm
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.18/dist/js/uikit.min.js"></script>

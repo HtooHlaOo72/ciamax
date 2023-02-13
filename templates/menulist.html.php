@@ -1,19 +1,21 @@
-<div class="">
-            <div class="uk-child-width-1-2@m uk-grid-column-small uk-margin-small-left uk-margin-small-right" uk-grid>
+<div class="uk-container" uk-height-viewport style="background-color:#8dc9d7">
+<div class="uk-padding">            
+<div class="uk-child-width-1-4@m uk-grid-match uk-grid-small " uk-grid>
             <?php foreach($menus as $menu) : ?>    
             <div>
-                    <div class="uk-card uk-card-default uk-border-rounded">
-                        <div class="uk-card-media-top">
-                            <img src="/ciamax/public/<?=$menu->img??'images/canteen_img/m4.jpg' ?>" width="1800" height="1200" alt="">
+                    <div class="uk-card card uk-border-rounded" >
+                        <div class="uk-card-media-top" style="height:100px">
+                            <img src="/ciamax/public/<?=$menu->img??'images/canteen_img/m4.jpg' ?>" width="100%" height="100%" alt="image">
                         </div>
                         <div class="uk-card-body">
-                            <h3 class="uk-card-title"><?=$menu->name??"Empty Menu Name" ?></h3>
+                            <p class="uk-card-title"><?=$menu->name??"Empty Menu Name" ?></p>
                             <p><?=$menu->price ?> Kyats</p>
                             <p><?=isset($menu->getStore()->name)?$menu->getStore()->name:"No Owner" ?></p>
                         </div>
                         
                     </div>
-                </div>
             </div>
-            <?php endforeach ?>
-        </div>
+            
+            <?php endforeach ?></div>
+            </div>
+</div>

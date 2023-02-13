@@ -1,10 +1,11 @@
-<div class="uk-container" uk-height-viewport="expand:true">
+<div class="uk-container" style="background-color:#8dc9d7" uk-height-viewport="expand:true">
         <h3 class=''>Admin Dashboard</h3>
-        <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation:uk-animation-fade">
+        <ul class="uk-subnav subnav-pill"  uk-switcher="animation:uk-animation-fade">
             <li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Stores</a></li>
             <li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Users</a></li>
             <li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Manage Home</a></li>
         </ul>
+        <hr style="background-color:#8dc9d7;"/>
         <ul class="uk-switcher uk-margin">
             <li>
                 <div>
@@ -14,14 +15,14 @@
                         </div>
                         <div>
                         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded"
-                            href='/ciamax/public/store/register'
+                            href='/ciamax/public/store/register' style="background-color:#034250;color:#fff;"
                         >Create New Store</a>
                         </div>
                     </div>                    
                     <div>
                         <div class="uk-child-width-1-3 uk-child-width-1-4@m uk-grid-match uk-grid-medium" uk-grid>
                             <?php foreach($stores as $store):?>
-                            <div class="uk-card uk-card-hover uk-padding-remove " type="button">
+                            <div class="uk-card card uk-padding-remove uk-margin-small-left" type="button">
                                 <div class="uk-text-right">
                                     <span class='uk-margin-small-right' uk-icon="more" type="button"></span>
                                     <div uk-dropdown="mode:click" class="uk-padding-remove width_100" style='width:100px;background:none;'>
@@ -42,7 +43,7 @@
                                     <img src="http://localhost/ciamax/public/<?=$store->img ?>" alt="" >
                                 </div>                    
                                 <div class="uk-card-body smallest_font_size uk-padding-remove uk-margin-small-bottom">
-                                    <h3 class="uk-margin-small-left uk-margin-small-right uk-card-title uk-text-small "><?=$store->name ?></h3>
+                                    <p class="uk-margin-small-left uk-margin-small-right uk-card-title uk-text-small "><?=$store->name ?></p>
                                     <p class='uk-margin-small-left uk-margin-small-right' >Owner     : <?=!empty($store->getOwner())?$store->getOwner()->name:"No Owner" ?> </p>
                                     <p class='uk-margin-small-left uk-margin-small-right' >Phone no  : <?=isset($store->ph_no)?$store->ph_no:"09xxxxxxxxx" ?></p>
                                 </div>
@@ -60,13 +61,13 @@
                         </div>
                         <div>
                             <a  class="uk-button uk-button-small uk-button-secondary"
-                                href="/ciamax/public/user/registrationform"
+                                href="/ciamax/public/user/registrationform" style="background-color:#034250;color:#fff;border-radius:5px"
                             >Create New Student</a>
                         </div>
                     </div>
                     <div class="uk-child-width-1-4 uk-margin-small-left uk-margin-small-right uk-grid-match" uk-grid>
                         <?php foreach($users as $user):?>
-                            <div class="uk-card uk-card-hover uk-box-shadow-small uk-padding-remove uk-border-rounded" type="button">
+                            <div class="uk-card card uk-box-shadow-small uk-padding-remove uk-border-rounded uk-margin-small-left"  type="button">
                                 <div class="uk-text-right">
                                     <span class='uk-margin-small-right' uk-icon="more" type="button"></span>
                                     <div uk-dropdown="mode:click" class="uk-padding-remove width_100" style='width:100px;background:none;'>
