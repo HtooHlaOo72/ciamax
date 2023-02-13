@@ -31,7 +31,7 @@ class Ciamax implements \Util\Website{
         return [
             'loggedIn' => $this->authentication->isLoggedIn(),
             'profile'=>$this->authentication->getUser(),
-            'role'=>($this->authentication->getUser())?$this->authentication->getRoleName():"",
+            'role'=>($this->authentication->isLoggedIn())?$this->authentication->getRoleName():"",
             'roleNum'=>($this->authentication->isLoggedIn())?$this->authentication->getRole():"",
             'urlList'=>$urlList,
             'drop_down_name'=>(isset($this->drop_down_name) and !empty($this->drop_down_name))?$this->drop_down_name:"",

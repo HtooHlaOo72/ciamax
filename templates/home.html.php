@@ -1,3 +1,7 @@
+<?php
+
+use Util\Authentication;
+?>
 <div class="uk-responsive-height">
         <main class="uk-height-large uk-width-expand  uk-inline" style='background-color:#034250;color:white;'>
             <div class="uk-overlay uk-dark uk-position-center normal_opacity ">
