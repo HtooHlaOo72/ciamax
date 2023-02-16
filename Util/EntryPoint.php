@@ -11,10 +11,10 @@ class EntryPoint {
             if ($uri == '') {
                 $uri = $this->website->getDefaultRoute();
             }
-
             $route = explode('/', $uri);
             $controllerName = array_shift($route);
             $action = array_shift($route);
+          
             $this->website->checkLogin($controllerName . '/' . $action);
 
             if ($method === 'POST') {

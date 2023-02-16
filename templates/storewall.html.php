@@ -11,7 +11,7 @@
             <p class='uk-text-default uk-text-bold'>Owner : <?=(isset($owner))?$owner->name:"Name is empty" ?></p>
             <p class='uk-text-default uk-text-bold'>Phone : <?=$store->ph_no?$store->ph_no:"Name is empty" ?></p>
             <p class='uk-text-default uk-text-bold'>Total Members : <?=$store->TotalMembers() ?></p>
-            <a href="" style="background-color:#034250;color:#fff;border-radius:5px" class='uk-button uk-button-small uk-button-secondary'>
+            <a href="/ciamax/public/member/request" style="background-color:#034250;color:#fff;border-radius:5px" class='uk-button uk-button-small uk-button-secondary'>
                 Join Membership
             </a>
             </div>

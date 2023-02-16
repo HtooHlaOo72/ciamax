@@ -3,11 +3,12 @@
 use Util\Authentication;
 ?>
 <div class="uk-responsive-height">
+        
         <main class="uk-height-large uk-width-expand  uk-inline" style='background-color:#034250;color:white;'>
             <div class="uk-overlay uk-dark uk-position-center normal_opacity ">
                 <h4 class="text_white uk-text-bolder" style='color:white;'>A solution for our environment</h4>
                 <p class="uk-text-bold text_white" >Please be sure to join</p>
-                <a class="uk-button uk-button-secondary uk-border-rounded uk-box-shadow-small" style='background-color:#db9914 !important;color:black;'>Register Here</a>
+                <a class="uk-button uk-button-secondary uk-border-rounded uk-box-shadow-small" style='background-color:#db9914 !important;color:black;' href="/ciamax/public/user/registrationform">Register Here</a>
             </div>
         </main>
         <section class="uk-responsive-height uk-height-medium@s uk-width-expand uk-text-left uk-margin-medium-top ">
@@ -47,7 +48,7 @@ use Util\Authentication;
             </div>
             <?php endforeach ?>
         </div>
-        <a class="uk-button uk-button-default uk-align-center uk-width-small text_white">See More</a>
+        <a class="uk-button uk-button-default uk-align-center uk-width-small text_white" href="/ciamax/public/menu/list">See More</a>
     </div>
     <hr/>
     

@@ -27,7 +27,7 @@
             <td><?=$meal->date??"<span class='uk-text-danger'>emty</span>" ?></td>
             <td><?=$meal->status??"<span class='uk-text-danger'>emty</span>" ?></td>
             <td><?=$meal->getMenu()->name??"<span class='uk-text-danger'>emty</span>" ?></td>
-            <td><a href="" class='uk-button uk-button-small uk-button-default'>Detail</a></td>
+            <td><a href="/ciamax/public/member/historydetail/<?=$meal->id ?>" class='uk-button uk-button-small uk-button-default'>Detail</a></td>
             <td>
             <form
                     action="/ciamax/public/member/validatemeal"

@@ -59,9 +59,9 @@
                 <ul class="uk-navbar-nav uk-visible@s">
 
                     <?php foreach($urlList as $url_name=>$url): ?>
-                        <?php if($url_name=="DropDown"): ?>
+                        <?php if($url_name=="DropDown"){ ?>
                             <li>
-                                <button type='button' style='color:#fff;'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
+                                <button type='button' style='color:#fff;' class='uk-'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
                                 <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <?php foreach($url['sub_url_list'] as $sub_name=>$sub_url): ?>
@@ -70,9 +70,12 @@
                                     </ul>
                                 </div>
                             </li>
-                        <?php else: ?>
+                        <?php }else if($url_name=='History'){ ?>
+                            <li><a class="uk-text-large" href="/ciamax/public/<?=$profile->isMember()?$url:"member/notmember" ?>"style='color:#fff;'><?=$url_name??"empty" ?></a></li>
+
+                        <?php }else{ ?>
                             <li><a class="uk-text-large" href="/ciamax/public/<?=$url??'user/home' ?>"style='color:#fff;'><?=$url_name??"empty" ?></a></li>
-                        <?php endif ?>
+                        <?php } ?>
                     <?php endforeach ?>
                     
                     <!-- <li><a class="uk-text-large" href="/ciamax/public/store/list"style='color:#fff;'>Stores</a></li>

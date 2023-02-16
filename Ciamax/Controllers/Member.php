@@ -64,7 +64,7 @@ class Member{
             $errors[] = "Kpay screenshot is empty";
         }
         if(count($errors)==0){
-            $request = strtolower($request['roll_no']);
+            $request['roll_no'] = strtolower($request['roll_no']);
             $requestObj = $this->requestTable->save($request);
             if(!empty($requestObj)){
                 try {
@@ -155,10 +155,31 @@ class Member{
             "title"=>"Validate Meal",
             "variables"=>[
                 "histories"=>$histories,
-                
             ]
         ];
         
         
+    }
+    public function notMember(){
+        return [
+            "template"=>'notmember.html.php',
+            "title"=>"Not A Member",
+        ];
+    }
+    public function historyDetail($id){
+        $histories = $this->historyTable->find('id',$id);
+        $history = null;
+        if(count($histories)==0){
+            $history=null;
+        }else{
+            $history = $histories[0];
+        }
+        return [
+            "template"=>"historydetail.html.php",
+            "title"=>"History Detail",
+            "variables"=>[
+                "history"=>$history,
+            ]
+        ];
     }
 }

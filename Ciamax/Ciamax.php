@@ -14,7 +14,7 @@ class Ciamax implements \Util\Website{
     private ?string $drop_down_name;
     public function __construct(){
         $pdo = new \PDO('mysql:host=localhost;dbname=ciamax2','root','rootcms');
-        $this->userTable = new DatabaseTable($pdo,'user','id','\Ciamax\Entity\User');
+        $this->userTable = new DatabaseTable($pdo,'user','id','\Ciamax\Entity\User',[&$this->memberTable]);
         $this->menuTable = new DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
         $this->memberTable = new DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
         $this->storeTable = new DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->historyTable]);
@@ -38,8 +38,6 @@ class Ciamax implements \Util\Website{
         ];
     }
     public function getNavUrlListByRole($role): array {
-       
-        
         $urlList = [
             0=>[
                 "Home"=>"user/home",
@@ -51,6 +49,7 @@ class Ciamax implements \Util\Website{
                 "Home"=>"user/home",
                 "Stores"=>"store/list",
                 "Menus"=>"menu/list",
+                "History"=>"member/validatemeal",
                 "DropDown"=>[
                     "sub_url_list"=>[
                         "Profile"=>"user/profile",
@@ -81,7 +80,7 @@ class Ciamax implements \Util\Website{
         return $urlList[$role];
     }
     public function getDefaultRoute(): string {
-        return '/ciamax/public/user/home';
+        return 'user/home';
     }
     public static function uploadAndStore($upload_name,$location='uploads/'):array{
         $errors = [];
@@ -122,18 +121,12 @@ class Ciamax implements \Util\Website{
     }
     public function checkLogin(string $uri):string {
         $restrictedPages = [
-            // 'user/list'
+            "user/dashboard"
+        ];
         
-        ];
-        $adminPages = [
-            // 'store/register'
-        ];
-        $storePages = [
-
-        ];
         if(in_array($uri,$restrictedPages)){
             if(!($this->authentication->isLoggedIn() and $this->authentication->getUser()->role ==3)){
-                header('Location:/ciamax/public/user/list');
+                header('Location:/ciamax/public/login/login');
             }
         }
         return $uri;

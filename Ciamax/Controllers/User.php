@@ -199,7 +199,21 @@ class User {
         
     }
     
-
+    public function profile(){
+        $id = $this->authentication->getUser()->id;
+        $users = $this->userTable->find('id',$id);
+        $user = null;
+        if(count($users)>0){
+            $user = $users[0];
+        }
+        return [
+            "template"=>"userprofile.html.php",
+            "title"=>$user->name."'s Profile",
+            "variables"=>[
+                "user"=>json_decode(json_encode($user)),
+            ]
+        ];
+    }
     public function menuList(){
 
     }
@@ -215,10 +229,5 @@ class User {
     public function purchaseSubmit(){
 
     }
-    public function acceptMeal(){
-        
-    }
-    public function acceptMealSubmit(){
-
-    }
+    
 }

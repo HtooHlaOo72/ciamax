@@ -2,6 +2,7 @@
 namespace Ciamax\Entity;
 
 use Util\Authentication;
+use Util\DatabaseTable;
 
 class User {
     public $id;
@@ -10,7 +11,7 @@ class User {
     public $password;
     public $img;
     public $role;
-    public function __construct(){
+    public function __construct(private ?DatabaseTable $memberTable){
 
     }
     public function getRole(){
@@ -22,6 +23,22 @@ class User {
 
     public function changeInfo($key,$value){
 
+    }
+    public function isMember(){
+        $members = $this->memberTable->find('userId',$this->id);
+        if(count($members)==0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public function getMember(){
+        $members = $this->memberTable->find('userId',$this->id);
+        if(count($members)==0){
+            return null;
+        }else{
+            return $members[0];
+        }
     }
     
 }
