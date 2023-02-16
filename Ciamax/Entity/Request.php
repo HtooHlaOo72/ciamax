@@ -43,4 +43,11 @@ class Request {
         }
         return $user[0];
     }
+    public function toArray(){
+        $temp =[];
+        foreach(get_object_vars($this) as $key=>$val){
+            $temp[$key]=$val;
+        }
+        return $temp;
+    }
 }

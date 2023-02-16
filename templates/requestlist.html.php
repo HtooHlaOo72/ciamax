@@ -45,7 +45,7 @@
                     id='acceptReq'
                     class='uk-display-inline'
                 >
-                    <input type='hidden' name='id' value="<?=$request->id??'d' ?>"/>
+                    <input type='hidden' name='id' value="<?=$request->id??'d' ?>" />
                     <input type='hidden' name="action" value="is_accepted" />
                     <input type='submit' <?=($request->is_accepted or $request->is_rejected)?'disabled':'' ?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
                 </form>
@@ -59,10 +59,8 @@
                     <input type='hidden' name="action" value="is_rejected" />
                     <input type='submit' <?=($request->is_accepted or $request->is_rejected)?'disabled':"" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
                 </form>
-                
-                
             </td>
-            <td><a href="#" class='uk-button uk-button-small uk-button-secondary'>Detail</a></td>
+            <td><a href="/ciamax/public/store/requestdetail/<?=$request->id?>" class='uk-button uk-button-small uk-button-secondary'>Detail</a></td>
         </tr>
         <?php endforeach ?>
     </tbody>

@@ -320,5 +320,30 @@ class Store {
             ],
         ];
     }
+
+    public function requestDetail($id=null){
+        $request=$requests=null;
+        $errors = [];
+        try{
+            $requests = $this->requestTable->find('id',$id);
+            if(count($requests)==0){
+                $request = null;
+            }else{
+                $request = $requests[0];
+            }
+        }
+        catch(Exception $e){
+            $errors[]="Error in finding request";
+        }
+        
+        return [
+            "template"=>"requestdetail.html.php",
+            "title"=>"Request Detail",
+            "variables"=>[
+                "request"=>$request,
+                "errors"=>$errors,
+            ],
+        ];
+    }
     
 }
