@@ -58,7 +58,7 @@ class Menu{
                 $menu['id'] = $newMenu->id;
                 $menu['img'] = $url;
                 $this->menuTable->save($menu);
-                header("Location: /ciamax/public/user/dashboard");
+                header("Location: /ciamax/public/store/profile");
             }
         }else{
             return [

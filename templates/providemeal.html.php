@@ -11,7 +11,9 @@
                                 <p><?=$msg ?></p>
                             </div>
                             <?php } ?>
-                            <form method="POST" action='' enctype='multipart/form-data'>
+                            <form method="POST" action='/ciamax/public/store/providemeal' enctype='multipart/form-data'>
+                                <input type='hidden' name="storeId" value='<?=$store?$store->id:"" ?>' />
+                               
                                 <div class="uk-margin uk-text-small" >
                                     <label for="roll_no">Student ID :</label>
                                     <div class="uk-inline uk-width-1-1">

@@ -6,7 +6,7 @@ use Exception;
 use Util\Authentication;
 use Util\DatabaseTable;
 class Member{
-    public function __construct(private Authentication $authentication,private DatabaseTable $userTable,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $requestTable){
+    public function __construct(private Authentication $authentication,private DatabaseTable $userTable,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $requestTable,private DatabaseTable $historyTable){
 
     }
     public function list($storeId=null){
@@ -92,5 +92,73 @@ class Member{
                 "user"=>$user,
             ]
         ];
+    }
+    public function validateMeal($id=null){
+        
+        $member = null;
+        if(is_null($id)){
+            if($this->authentication->isLoggedIn()){
+                $userId = $this->authentication->getUser()->id;
+                $members = $this->memberTable->find("userId",$userId);//find member array by logged in user's id
+                if(count($members)!=0){
+                    $member = $members[0];
+                }
+            }
+        }
+        if(!$member){
+            header("Location : /ciamax/public/login/login");
+        }
+        $histories = $this->historyTable->find("memberId",$member->id);
+        return [
+            "template"=>"validatemeal.html.php",
+            "title"=>"Validate Meal",
+            "variables"=>[
+                "histories"=>$histories,
+                
+            ]
+        ];
+
+    }
+    public function validateMealSubmit(){
+        $errors = [];
+        $id= $_POST['id'];
+        $status=$_POST["status"]??"pending";
+        $memberId=null;
+        if(empty($id)){
+            $errors[]='History ID is empty to validate meal';
+        }
+        if(empty($status)){
+            $errors[]="Status is empty to validate meal";
+        }
+        if(count($errors)==0){
+            $histories = $this->historyTable->find("id",$id);
+            $history=null;
+            if(count($histories)==0){
+                $errors[]="No history with id $id found!";
+            }else{
+                $history=$histories[0];
+                $history->status = $status;
+                // $history = json_decode(json_encode($history));//convert history obj to array cuz save function work only with array;
+                $history = $history->toArray();
+                $history = $this->historyTable->save($history);
+                $memberId = $history->memberId;//assign memberId from history obj;
+                if(is_null($history)){
+                    $errors[]="Error in updating history object";
+                }
+            }
+
+            
+        }
+        $histories = $this->historyTable->find("memberId",$memberId);
+        return [
+            "template"=>"validatemeal.html.php",
+            "title"=>"Validate Meal",
+            "variables"=>[
+                "histories"=>$histories,
+                
+            ]
+        ];
+        
+        
     }
 }

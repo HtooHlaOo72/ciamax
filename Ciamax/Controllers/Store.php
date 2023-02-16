@@ -7,7 +7,14 @@ use Exception;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class Store {
-    public function __construct(private Authentication $authentication,private DatabaseTable $storeTable,private DatabaseTable $memberTable,private DatabaseTable $menuTable,private DatabaseTable $userTable,private DatabaseTable $requestTable,private DatabaseTable $historyTable){
+    public function __construct(private Authentication $authentication,
+                                private DatabaseTable $storeTable,
+                                private DatabaseTable $memberTable,
+                                private DatabaseTable $menuTable,
+                                private DatabaseTable $userTable,
+                                private DatabaseTable $requestTable,
+                                private DatabaseTable $historyTable
+                                ){
 
     }
     
@@ -222,24 +229,24 @@ class Store {
         ];
     }
     public function provideMeal($storeId=null){
-        echo Ciamax::today();
+        // echo Ciamax::today();
         $errors = [];
         $menus=$members=$store=null;
         $types = ["lunch","dinner"];
         if(!$storeId){
-            $errors[]="Store ID not found";
+            $store = $this->storeTable->find('userId',$this->authentication->getUser()->id)[0];
         }else{
-            $menus = $this->menuTable->find('storeId',$storeId,"id");
             $store = $this->storeTable->find('id',$storeId)[0];
-            $members=$store->getMembers();
         }
-        
+        if(!is_null($store)){
+            $members = $store->getMembers();
+        }
         return [
             "template"=>"providemeal.html.php",
             "title"=>"providemeal",
             "variables"=>[
                 "errors"=>$errors,
-                "menus"=>$menus,
+                "menus"=>$store->getMenus(),
                 "store"=>$store,
                 "members"=>$members,
                 "types"=>$types,
@@ -247,12 +254,14 @@ class Store {
             ];
     }
     
-    public function provideMealSubmit($storeId=null){
+    public function provideMealSubmit(){
         $errors = [];
+        $storeId=$_POST['storeId'];
         $menus=$member=$members=$store=$historyObj=$msg=null;
         $types = ["lunch","dinner"];
         $history = $_POST["history"];
-        
+        $history['date']=Ciamax::today();
+       
         if(!$storeId){
             $errors[]="Store ID not found";
         }
@@ -268,41 +277,35 @@ class Store {
             
             if(count($member)>0){
                 $member = $member[0];
+                if(!$member->checkTodayMeal($history['type'])){
+                    $errors[]="{$history['type']} has already been provided to {$member->roll_no}";
+                }
                 $history['memberId']=$member->id;
                 $history['status']="pending";
                 $history["date"]=Ciamax::today();
-                echo $history['date']." <<--";
+                unset($history['roll_no']);
+                // echo $history['date']." <<--";
 
             }else{
                 $errors[] = "Invalid student ID ('Member not exist')";
             }
 
-            $historyObj=$this->historyTable->save($history);
+            // $historyObj=$this->historyTable->save($history);
         }
         if(count($errors)==0){
-            try{
-            $history['roll_no']=strtolower($history['roll_no']);//convert roll number to lower case
-            $member = $this->memberTable->find('roll_no',$history['roll_no']);//find member by roll_no
-
-            if(count($member)>0){
-                $member = $member[0];
-                
-                $checkToday = $member->checkTodayMeal($history['type']);
-                if(!$checkToday){
-                    $errors[]="{$history['type']} has already been provided!";
-                }
-            }
-            }catch(Exception $e){
-                $errors[]="Error in today check";
+            $historyObj=$this->historyTable->save($history);//add history
+           
+            if(!is_null($historyObj)){
+                $msg = "{$history['type']} has been provided to {$member->roll_no}";
+            }else{
+                $errors[]="Error in providing meal";
             }
         }
         
-        if(count($errors)==0 and !is_null($historyObj)){
-            $menus = $this->menuTable->find('storeId',$storeId,"id");
-            $store = $this->storeTable->find('id',$storeId)[0];
-            $members=$store->getMembers();
-            $msg = "{$history['type']} Provided to $member->roll_no!";
-        }
+        $menus = $this->menuTable->find('storeId',$storeId);
+        $store = $this->storeTable->find('id',$storeId)[0];
+        $members=$store->getMembers();
+        
        
         return [
             "template"=>"providemeal.html.php",
@@ -314,8 +317,8 @@ class Store {
                 "members"=>$members,
                 "types"=>$types,
                 "msg"=>$msg,
-            ]
-            ];
+            ],
+        ];
     }
     
 }

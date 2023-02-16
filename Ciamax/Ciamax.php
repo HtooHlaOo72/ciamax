@@ -115,7 +115,7 @@ class Ciamax implements \Util\Website{
        "login"=>new \Ciamax\Controllers\Login($this->authentication),
        "store"=>new \Ciamax\Controllers\Store($this->authentication,$this->storeTable,$this->memberTable,$this->menuTable,$this->userTable,$this->requestTable,$this->historyTable),
        "menu"=>new \Ciamax\Controllers\Menu($this->menuTable,$this->storeTable,$this->userTable,$this->authentication),
-       "member"=>new \Ciamax\Controllers\Member($this->authentication,$this->userTable,$this->storeTable,$this->memberTable,$this->requestTable),
+       "member"=>new \Ciamax\Controllers\Member($this->authentication,$this->userTable,$this->storeTable,$this->memberTable,$this->requestTable,$this->historyTable),
       ];
       
       return $controllers[$controllerName] ?? null;

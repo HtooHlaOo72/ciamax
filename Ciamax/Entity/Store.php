@@ -25,7 +25,6 @@ class Store {
     public function getMemberHistory($id){
         return $this->historyTable->find('memberId',$id);
     }
-    
     public function TotalMembers():int {
         return count($this->memberTable->find('storeId', $this->id));
     }

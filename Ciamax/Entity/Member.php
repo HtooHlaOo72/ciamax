@@ -10,7 +10,6 @@ class Member extends User {
     public $left_times;
     public $is_paid;
     public $start_date;
-
     public $roll_no;
     public $userId;
     public $storeId;
@@ -28,39 +27,37 @@ class Member extends User {
     public function getUser(){
         return $this->userTable->find("id", $this->userId)[0];
     }
-    public function checkTodayMeal($type="lunch"){
-        // function check($typ) {
-        //     return function ($history) use ($typ) {
-        //       return ($history->date == Ciamax::today() and $history->type == $typ);
-        //     };
-        //   }
+    public function checkTodayMeal($type="lunch"): bool {
+       
         try{
         $histories=$this->historyTable->find('memberId',$this->id);
         if(count($histories)>0 ){
-            // $result = array_filter($histories,function ($history) use ($type){
-            //     // global $type;
-            //     echo ($type == $history->type)?"T":"F";
-            //     return ($history->date == Ciamax::today() and $history->type==$type);
-            // });
-            // print_r($result);
-            // if(count($result)>0){
-            //     return false;
-            // }
-           
             foreach($histories as $history) {
-                echo Ciamax::today();
-                echo ($history->date == Ciamax::today())?"T":"F";
+                
                 if(($history->date == Ciamax::today()) and ($history->type == $type)){
-                    echo "False";
+                    echo "$type False";
                     return false;
                 }
             }
+            return true;
         }else{
             return true;
-        }}catch(Exception $e){
-            echo $e->getMessage();
+        }
+        }catch(Exception $e){
+            echo "Failed";
             return false;
         }
+    }
+    public function toArray(){
+        return [
+            "id"=>$this->id,
+            "left_times"=>$this->left_times,
+            "is_paid"=>$this->is_paid,
+            "start_date"=>$this->start_date,
+            "roll_no"=>$this->roll_no,
+            "userId"=>$this->userId,
+            "storeId"=>$this->storeId,
+        ];
     }
     
 }
