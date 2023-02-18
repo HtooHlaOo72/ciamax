@@ -15,7 +15,7 @@ uk-grid>
             <?=$user->email??"empty" ?>
         </p>
         <p>
-            <?=$user->isMember()?"<span class='uk-text-success'>Member</span>":"<span class='uk-text-danger'>Not Member</span>" ?>
+            <?=$user->isMember()?"<span class='uk-text-success'>Member</span>":"<span class='uk-text-danger'>Not Member</span><a href='/ciamax/public/member/request' class='uk-button uk-button-success uk-button-small' >Join Membership</a>" ?>
         </p>
         <?php if($user->isMember()): ?>
             <?php 

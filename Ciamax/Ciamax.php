@@ -122,14 +122,15 @@ class Ciamax implements \Util\Website{
       return $controllers[$controllerName] ?? null;
     }
     public function checkLogin(string $uri):string {
-        $restrictedPages = [
-            "user/dashboard"
+        $unrestrictedPages = [
+            "user/home",
+            "store/list",
+            "menu/list",
+            "login/login",
+            "user/registrationform",
         ];
-        
-        if(in_array($uri,$restrictedPages)){
-            if(!($this->authentication->isLoggedIn() and $this->authentication->getUser()->role ==3)){
-                header('Location:/ciamax/public/login/login');
-            }
+        if(!in_array($uri,$unrestrictedPages) && !$this->authentication->isLoggedIn()){
+            header("Location: /ciamax/public/login/login");
         }
         return $uri;
     }
