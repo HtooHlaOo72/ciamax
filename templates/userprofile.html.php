@@ -18,8 +18,15 @@ uk-grid>
             <?=$user->isMember()?"<span class='uk-text-success'>Member</span>":"<span class='uk-text-danger'>Not Member</span>" ?>
         </p>
         <?php if($user->isMember()): ?>
+            <?php 
+                $member = $user->getMember();    
+            ?>
             <p>
-                <?=$user->getMember()->roll_no ?>
+                <?=$member->roll_no ?>
+            </p>
+            
+            <p>
+                Total times left : <?=$member->left_times ?>
             </p>
         <?php endif ?>
         
