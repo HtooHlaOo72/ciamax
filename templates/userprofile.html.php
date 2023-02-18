@@ -31,7 +31,9 @@ uk-grid>
                 Total times left : <?=$member->left_times ?>
             </p>
         <?php endif ?>
-        <a class='uk-button uk-button-small' href='/ciamax/public/user/changeinfo'>Change Info</a>
+        <?php if($user->id == $logUser->id):?>
+            <a class='uk-button uk-button-small uk-button-default' href='/ciamax/public/user/changeinfo'>Change Info</a>
+        <?php endif ?>
     </div>
     <div>
         

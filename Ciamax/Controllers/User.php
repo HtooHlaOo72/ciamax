@@ -206,10 +206,13 @@ class User {
         
     }
     
-    public function profile(){
-        $id = $this->authentication->getUser()->id;
-        $users = $this->userTable->find('id',$id);
+    public function profile($id=null){
+        if(is_null($id)){
+            $id = $this->authentication->getUser()->id;
+        }
         $user = null;
+        $users = $this->userTable->find('id',$id);
+        $logUser = $this->authentication->getUser();
         if(count($users)>0){
             $user = $users[0];
         }
@@ -218,6 +221,7 @@ class User {
             "title"=>$user->name."'s Profile",
             "variables"=>[
                 "user"=>$user,
+                "logUser"=>$logUser,
                 // "member"=>$user->isMember()?$user->getMember():null,
             ]
         ];
