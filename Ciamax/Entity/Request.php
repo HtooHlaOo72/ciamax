@@ -15,7 +15,7 @@ class Request {
     public $is_accepted;
     public $is_rejected;
     
-    public function __construct(private DatabaseTable $requestTable,private DatabaseTable $userTable,private Authentication $authentication){
+    public function __construct(private DatabaseTable $requestTable,private DatabaseTable $userTable,private DatabaseTable $storeTable,private Authentication $authentication){
 
     }
     
@@ -43,6 +43,10 @@ class Request {
         }
         return $user[0];
     }
+    public function getStore(){
+        return $this->storeTable->find("id",$this->storeId)[0];
+    }
+    
     public function toArray(){
         $temp =[];
         foreach(get_object_vars($this) as $key=>$val){

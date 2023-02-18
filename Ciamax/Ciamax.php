@@ -18,7 +18,7 @@ class Ciamax implements \Util\Website{
         $this->menuTable = new DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
         $this->memberTable = new DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
         $this->storeTable = new DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->historyTable]);
-        $this->requestTable = new DatabaseTable($pdo, 'request', 'id', '\Ciamax\Entity\Request', [&$this->requestTable,&$this->userTable, &$this->authentication]);
+        $this->requestTable = new DatabaseTable($pdo, 'request', 'id', '\Ciamax\Entity\Request', [&$this->requestTable,&$this->userTable,&$this->storeTable, &$this->authentication]);
         $this->historyTable = new DatabaseTable($pdo,'history','id','\Ciamax\Entity\History',[&$this->memberTable,&$this->menuTable]);
         $this->authentication = new \Util\Authentication($this->userTable,'email','password');
     }

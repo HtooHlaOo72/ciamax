@@ -29,7 +29,7 @@
         <div id="action">
            <p><?=$history->status ?></p>
            <div>
-           <form
+                <form
                     action="/ciamax/public/member/validatemeal"
                     method="POST"
                     id='acceptMeal'
