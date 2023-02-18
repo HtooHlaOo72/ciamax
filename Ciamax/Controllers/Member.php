@@ -183,6 +183,11 @@ class Member{
         
         
     }
+
+    public function endMemberSubmit($memberId){
+       $this->memberTable->delete('id',$memberId);
+       header("Location: /ciamax/public/user/profile");
+    }
     public function notMember(){
         return [
             "template"=>'notmember.html.php',

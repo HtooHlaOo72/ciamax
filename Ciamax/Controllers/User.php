@@ -133,7 +133,10 @@ class User {
         }
         header("Location: /ciamax/public/user/dashboard");
     }
-    public function changeInfo($id){
+    public function changeInfo($id=null){
+        if(is_null($id)){
+            $id = $this->authentication->getUser()->id;
+        }
         $user = $this->userTable->find("id", $id)[0];
         return [
             "title"=>"Update User",

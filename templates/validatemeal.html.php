@@ -40,7 +40,7 @@
                 >
                     <input type='hidden' name='id' value="<?=$meal->id??'' ?>" />
                     <input type='hidden' name="status" value="accepted" />
-                    <input type='submit' <?=(($meal->status=='accepted' or $meal->status=='rejected') and $member->canAccceptMeal())?'disabled':'' ?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
+                    <input type='submit' <?=(($meal->status=='accepted' or $meal->status=='rejected'))?'disabled':'' ?> <?=$member->canAccceptMeal()?"":"disabled" ?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
                 </form>
                 <form
                     action="/ciamax/public/member/validatemeal"
@@ -50,7 +50,7 @@
                 >
                     <input type='hidden' name='id' value="<?=$meal->id??'' ?>"/>
                     <input type='hidden' name="status" value="rejected" />
-                    <input type='submit' <?=(($meal->status=='rejected' or $meal->status == "accepted") and $member->canAccceptMeal())?'disabled':"" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
+                    <input type='submit' <?=(($meal->status=='accepted' or $meal->status=='rejected') && !$member->canAccceptMeal())?'disabled':"" ?>  <?=$member->canAccceptMeal()?"":"disabled" ?>    value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
                 </form>
             </td>
         </tr>

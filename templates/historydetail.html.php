@@ -26,7 +26,7 @@
                                 class='uk-height-small uk-width-small uk-border-circle'>
             </p>
         </div>
-        <div id="status">
+        <div id="action">
            <p><?=$history->status ?></p>
            <div>
            <form
@@ -37,7 +37,7 @@
                 >
                     <input type='hidden' name='id' value="<?=$history->id??'' ?>" />
                     <input type='hidden' name="status" value="accepted" />
-                    <input type='submit' <?=($history->status=='accepted' or $history->status=='rejected')?'disabled':'' ?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
+                    <input type='submit' <?=($history->status=='accepted' or $history->status=='rejected')?'disabled':'' ?> <?=($member->canAccceptMeal())?"":"disabled" ?> value="Accept" class='uk-button uk-button-small uk-button-primary' style='width:100px;'  />
                 </form>
                 <form
                     action="/ciamax/public/member/validatemeal"
@@ -47,7 +47,7 @@
                 >
                     <input type='hidden' name='id' value="<?=$history->id??'' ?>"/>
                     <input type='hidden' name="status" value="rejected" />
-                    <input type='submit' <?=($history->status=='rejected' or $history->status == "accepted")?'disabled':"" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
+                    <input type='submit' <?=($history->status=='rejected' or $history->status == "accepted")?'disabled':"" ?> <?=($member->canAccceptMeal())?"":"disabled" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
                 </form>
            </div>
         </div>
