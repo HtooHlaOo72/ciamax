@@ -1,6 +1,12 @@
 <div>
     <h2>Request Detail</h2>
+    <div id='user'>
+
+    </div>
     <div>
-        <?=print_r($request->toArray()) ?>
+        <p><?=$request->days ?></p>
+        <p>
+            
+        </p>
     </div>
 </div>

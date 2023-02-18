@@ -25,7 +25,7 @@ use Util\Authentication;
                     <div class="uk-dark uk-background-muted uk-padding">
                         <h3>Hosteler Package</h3>
                         <p>Hostelers can join lunch and dinner package which is only <span>2800 MMK</span> per day</p>
-                        <a class="uk-button uk-button-default" href="/user/registrationForm">Join</a>
+                        <a class="uk-button uk-button-default" href="/ciamax/public/<?=($isLoggedIn)?'member/request':'user/registrationform' ?>">Join</a>
                     </div>
                 </div>
             </div>

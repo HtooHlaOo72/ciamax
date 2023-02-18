@@ -15,6 +15,7 @@ class History{
     public function __construct(private DatabaseTable $memberTable,private DatabaseTable $menuTable){
 
     }
+   
     public function getMenu(){
         $menus = $this->menuTable->find("id",$this->menuId);
         if(count($menus)==0){
@@ -22,6 +23,9 @@ class History{
         }else{
             return $menus[0];
         }
+    }
+    public function getMember(){
+        return $this->memberTable->find('id',$this->memberId);
     }
     public function toArray():array {
         return [

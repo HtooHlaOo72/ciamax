@@ -61,6 +61,8 @@ class Ciamax implements \Util\Website{
                 "Home"=>"user/home",
                 "Stores"=>"store/list",
                 "Menus"=>"menu/list",
+                "Member Requests"=>"store/validaterequest",
+                "Provide Meal"=>"store/providemeal",
                 "DropDown"=>[
                     "sub_url_list"=>[
                         "Profile"=>"store/profile",

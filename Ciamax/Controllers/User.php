@@ -1,5 +1,7 @@
 <?php
 namespace Ciamax\Controllers;
+
+use Ciamax\Ciamax;
 use Util\Authentication;
 use \Util\DatabaseTable;
 class User {
@@ -32,8 +34,10 @@ class User {
             "template"=>'home.html.php',
             "title"=>"Home",
             "variables"=>[
+                "today"=>Ciamax::today(),
                 "stores"=>$stores,
                 "menus"=>$menus,
+                "isLoggedIn"=>$this->authentication->isLoggedIn(),
             ]
         ];
     }
@@ -210,7 +214,8 @@ class User {
             "template"=>"userprofile.html.php",
             "title"=>$user->name."'s Profile",
             "variables"=>[
-                "user"=>json_decode(json_encode($user)),
+                "user"=>$user,
+                // "member"=>$user->isMember()?$user->getMember():null,
             ]
         ];
     }

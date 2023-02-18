@@ -21,10 +21,13 @@ endif;
         <h4 style="text-decoration:underline">Stores</h4>
         </div>
         <div>
+        <?php if(true): ?>
         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded uk-float-right"
             href='/ciamax/public/store/register' style="background-color:#2d7484"
         >Create New Store</a>
+        <?php endif ?>
         </div>
+        
     </div>                    
     <div>
         <div class="uk-child-width-1-2 uk-child-width-1-4@m uk-grid-match uk-grid-small uk-padding-small"  uk-grid>

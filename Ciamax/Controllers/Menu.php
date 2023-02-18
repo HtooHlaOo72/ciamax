@@ -26,7 +26,6 @@ class Menu{
         ];
     }
     public function addMenuSubmit(){
-        echo "Addmenu";
         $errors =[];
         if(!isset($_POST["name"])){
             $errors[] = "Menu name is empty";
@@ -41,6 +40,7 @@ class Menu{
             $errors[] = 'Menu Photo is empty';
         }
         $store = $this->storeTable->find('userId',$this->authentication->getUser()->id)[0];
+        // print_r($store);
         if(empty($store)){
             $errors[] = "Store has not created";
         }

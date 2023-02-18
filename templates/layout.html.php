@@ -61,7 +61,7 @@
                     <?php foreach($urlList as $url_name=>$url): ?>
                         <?php if($url_name=="DropDown"){ ?>
                             <li>
-                                <button type='button' style='color:#fff;' class='uk-'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
+                                <button type='button' style='color:#fff;' class='uk-button uk-button-small'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
                                 <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <?php foreach($url['sub_url_list'] as $sub_name=>$sub_url): ?>
@@ -90,10 +90,24 @@
     <div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas" style="background-color:#2d7484;">
         <div class="uk-offcanvas-bar">
             <ul class="uk-nav">
-                <li><a class="uk-text-large" href="/">Home</a></li>
-                <li><a class="uk-text-large" href="/menu.php">Menu List</a></li>
-                <li><a class="uk-text-large" href="/menu.php">Cart <span uk-icon="icon:cart"></span></a></li>
-                <li><a class="uk-text-large" href="/menu.php">Login</a></li>
+                <?php foreach($urlList as $url_name=>$url): ?>
+                    <?php if($url_name=='DropDown'){ ?>
+                        <li>
+                            <span><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></span>
+                            <ul style='list-style-type:none;'>
+                                <?php foreach($url['sub_url_list'] as $sub_name=>$sub_url): ?>
+                                <li>
+                                    <a href="/ciamax/public/<?=$sub_url ?>"><?=$sub_name ?></a>
+                                </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </li>
+                    <?php }else if($url_name=="History"){ ?>
+                        <li><a class="uk-text-large" href="/ciamax/public/<?=$profile->isMember()?$url:"member/notmember" ?>"style='color:#fff;'><?=$url_name??"empty" ?></a></li>
+                    <?php }else { ?>
+                        <li><a class="uk-text-large" href="/ciamax/public/<?=$url ?>"><?=$url_name ?></a></li>
+                    <?php }?>
+                <?php endforeach ?>
             </ul>
         </div>
     </div>

@@ -95,7 +95,7 @@ class Store {
             }
             if(count($errors)==0){
                 $this->storeTable->save($newStore);
-                header("Location:/ciamax/public/user/dashboard");
+                header("Location:/ciamax/public/store/profile");
             }
             
         }else{

@@ -65,6 +65,8 @@ class Member{
         }
         if(count($errors)==0){
             $request['roll_no'] = strtolower($request['roll_no']);
+            $request['date']= Ciamax::today();
+           
             $requestObj = $this->requestTable->save($request);
             if(!empty($requestObj)){
                 try {
@@ -75,6 +77,7 @@ class Member{
                     } else {
                         $request["kpay_ss"] = $url;
                         $request['id'] = $requestObj->id;
+                        $request['date']= Ciamax::today();
                         $this->requestTable->save($request);
                         header("Location:/ciamax/public/store/list");
                     }
@@ -93,12 +96,25 @@ class Member{
             ]
         ];
     }
+    public function requestDetail($id=null){
+        $request = $this->requestTable->find('id',$id);
+        if(count($request)>0){
+            $request = $request[0];
+        }
+        return [
+            "template"=>"requestdetail.html.php",
+            "title"=>"Request Detail",
+            "variables"=>[
+                "request"=>$request,
+            ],
+        ];
+    }
     public function validateMeal($id=null){
         
         $member = null;
         if(is_null($id)){
             if($this->authentication->isLoggedIn()){
-                $userId = $this->authentication->getUser()->id;
+                $userId = $this->authentication->getUser()->id;//get user id from authentication
                 $members = $this->memberTable->find("userId",$userId);//find member array by logged in user's id
                 if(count($members)!=0){
                     $member = $members[0];
@@ -123,7 +139,7 @@ class Member{
         $errors = [];
         $id= $_POST['id'];
         $status=$_POST["status"]??"pending";
-        $memberId=null;
+        $memberId=$member=null;
         if(empty($id)){
             $errors[]='History ID is empty to validate meal';
         }
@@ -142,6 +158,12 @@ class Member{
                 $history = $history->toArray();
                 $history = $this->historyTable->save($history);
                 $memberId = $history->memberId;//assign memberId from history obj;
+                $members = $this->memberTable->find('id',$memberId);
+                if(count($members)>0){
+                    $member=$members[0];
+                    $member->left_times -=1;//decrease the left_times by one once accepted the meal
+                    $this->memberTable->save($member->toArray());//convert to array type and save the member object
+                }
                 if(is_null($history)){
                     $errors[]="Error in updating history object";
                 }
@@ -155,6 +177,7 @@ class Member{
             "title"=>"Validate Meal",
             "variables"=>[
                 "histories"=>$histories,
+
             ]
         ];
         
