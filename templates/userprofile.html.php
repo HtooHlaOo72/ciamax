@@ -22,9 +22,11 @@ uk-grid>
                 $member = $user->getMember();    
             ?>
             <p>
+                Subscribed in <?=$member->getStore()->name ?>
+            </p>
+            <p>
                 <?=$member->roll_no ?>
             </p>
-            
             <p>
                 Total times left : <?=$member->left_times ?>
             </p>

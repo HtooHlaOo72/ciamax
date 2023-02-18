@@ -48,6 +48,9 @@ class Member extends User {
             return false;
         }
     }
+    public function canAccceptMeal(){
+        return $this->left_times>0;
+    }
     public function toArray(){
         return [
             "id"=>$this->id,
