@@ -73,13 +73,7 @@
                                     <div uk-dropdown="mode:click" class="uk-padding-remove width_100" style='width:100px;background:none;'>
                                         <ul class='uk-nav uk-dropdown-nav width_100' style='background:none;'>
                                             <li class="uk-background-default uk-text-center uk-text-warning uk-border-rounded" style='background:none;'>
-                                                <form>
-                                                    <input type='hidden' name='id' value=<?=$user->id??"" ?>/>
-                                                    <input type='submit' value="Update" class='uk-button uk-button-default uk-background-default uk-border-rounded width_100'/>
-                                                </form>
-                                            </li>
-                                            <li class="uk-background-default uk-text-center uk-text-warning uk-border-rounded" style='background:none;'>
-                                                <a href="/ciamax/public/user/changeinfo/<?=$user->id??""?>" >Change</a>
+                                                <a href="/ciamax/public/user/changeinfo/<?=isset($user->id)?$user->id:"" ?>" class="uk-button uk-button-default uk-border-rounded uk-flex uk-flex-center uk-flex-middle width_100">Update</a>
                                             </li>
                                             <li class="uk-background-secondary uk-text-center uk-text-danger uk-border-rounded" style='background:none;'>
                                                 <form method='POST' action='/ciamax/public/user/remove' class='uk-border-rounded'>

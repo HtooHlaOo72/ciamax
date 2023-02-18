@@ -54,6 +54,8 @@ endif;
                                         </div>
                                     </div>
                                 <?php } ?>
+                                <?php if(!$is_admin):?>
+
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                     <div style="display:inline-block;width:25%;min-width:120px"><label class="uk-text-large"style="color:#fff">Password :</label></div>
@@ -61,6 +63,7 @@ endif;
                                         <div style="display:inline-block;text-align:right;width:70%;min-width:300px"><input class=" uk-form-large" style=" color : #000;background-color:#ADD8E6;border: 0 solid #fff; width:100%;box-sizing:border-box;border-radius:25px;border-color:#ADD8E6;"type="password" placeholder=<?=(isset($is_update)? "'Old Password'":"'Password'") ?> name="user[password]" id='password'></div>
                                     </div>
                                 </div>
+                                <?php endif ?>
                                 <?php if(isset($is_update) and $is_update){ ?>
                                     <div
                                         class='uk-margin'

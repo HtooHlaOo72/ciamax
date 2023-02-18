@@ -144,6 +144,7 @@ class User {
             "variables"=>[
                 "user"=>$user,
                 "is_update"=>true,
+                "is_admin"=>($this->authentication->getRole()==3),
             ],
         ];
     }
@@ -165,21 +166,22 @@ class User {
             // convert the email to lowercase
             $user['email'] = strtolower($user['email']);
         }
-        if (empty($user['password'])) {
-            $errors[] = 'Password cannot be blank';
+       
+        if($this->authentication->getRole()!=3){
+            $user["password"]="nopassword";
+            if (empty($user['password'])) {
+                $errors[] = 'Password cannot be blank';
+            }
+            if(!$this->authentication->login($user['email'],$user['password'])){
+                $errors[] = 'Incorrect email or password';
+            }
         }
-        if(!$this->authentication->login($user['email'],$user['password'])){
-            $errors[] = 'Incorrect email or password';
-        }
+        
         if(empty($user['new_password'])){
             $errors[]="New password cannot be blank";
         }
-        // If there are no errors, proceed with saving the record in the database
         if (count($errors) === 0) {
-            // Hash the password before saving it in the database
             $user['password'] = password_hash($user['new_password'], PASSWORD_DEFAULT);
-            // When submitted, the $user variable now contains a lowercase value for email
-            // and a hashed password
             if(isset($_FILES['img']) and $_FILES['img']['size']>0){
                 $url = "uploads/user/" . rand(1,10000000) . "_profile_" . $user['id'];
                 $upload_errs = \Ciamax\Ciamax::uploadAndStore('img', $url);
@@ -190,7 +192,7 @@ class User {
             }
             unset($user['new_password']);
             $this->userTable->save($user);
-            header('Location: /ciamax/public/user/success');
+            header('Location: /ciamax/public/user/dashboard');
         } else {
             // If the data is not valid, show the form again
             return [
