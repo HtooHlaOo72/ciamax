@@ -11,7 +11,7 @@ class User {
     public $password;
     public $img;
     public $role;
-    public function __construct(private ?DatabaseTable $memberTable){
+    public function __construct(private ?DatabaseTable $memberTable,private ?DatabaseTable $historyTable,private ?DatabaseTable $requestTable){
 
     }
     public function getRole(){
@@ -39,6 +39,21 @@ class User {
         }else{
             return $members[0];
         }
+    }
+    public function checkMembership(){
+        $member = null;
+        $members = $this->memberTable->find("userId",$this->id);
+        if(count($members)>0){
+            $member = $members[0];
+        }else{
+            return false;
+        }
+        if($member->left_times<=0){
+            $this->historyTable->delete("memberId",$member->id);//clear history related to member
+            $this->memberTable->delete("id",$member->id);
+            return false;
+        }
+        return true;
     }
     
 }

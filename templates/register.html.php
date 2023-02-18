@@ -1,4 +1,5 @@
 <?php
+
 if (!empty($errors)) :
     ?>
   <div class="errors">
@@ -54,7 +55,7 @@ endif;
                                         </div>
                                     </div>
                                 <?php } ?>
-                                <?php if(!$is_admin):?>
+                                <?php if(!isset($is_admin) or !$is_admin):?>
 
                                 <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">

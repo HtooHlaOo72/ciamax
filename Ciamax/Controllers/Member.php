@@ -167,17 +167,17 @@ class Member{
                 if(is_null($history)){
                     $errors[]="Error in updating history object";
                 }
+                $histories = $this->historyTable->find("memberId",$memberId);
             }
 
             
         }
-        $histories = $this->historyTable->find("memberId",$memberId);
+        
         return [
             "template"=>"validatemeal.html.php",
             "title"=>"Validate Meal",
             "variables"=>[
-                "histories"=>$histories,
-
+                "histories"=>is_null($histories)?[]:$histories,
             ]
         ];
         
@@ -185,6 +185,7 @@ class Member{
     }
 
     public function endMemberSubmit($memberId){
+    
        $this->memberTable->delete('id',$memberId);
        header("Location: /ciamax/public/user/profile");
     }

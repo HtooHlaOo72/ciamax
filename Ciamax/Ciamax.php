@@ -14,14 +14,13 @@ class Ciamax implements \Util\Website{
     private ?string $drop_down_name;
     public function __construct(){
         $pdo = new \PDO('mysql:host=localhost;dbname=ciamax2','root','rootcms');
-        $this->userTable = new DatabaseTable($pdo,'user','id','\Ciamax\Entity\User',[&$this->memberTable]);
+        $this->userTable = new DatabaseTable($pdo,'user','id','\Ciamax\Entity\User',[&$this->memberTable,&$this->historyTable,&$this->requestTable]);
         $this->menuTable = new DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
         $this->memberTable = new DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
         $this->storeTable = new DatabaseTable($pdo,'store','id','\Ciamax\Entity\Store',[&$this->userTable,&$this->memberTable,&$this->menuTable,&$this->historyTable]);
         $this->requestTable = new DatabaseTable($pdo, 'request', 'id', '\Ciamax\Entity\Request', [&$this->requestTable,&$this->userTable, &$this->authentication]);
         $this->historyTable = new DatabaseTable($pdo,'history','id','\Ciamax\Entity\History',[&$this->memberTable,&$this->menuTable]);
         $this->authentication = new \Util\Authentication($this->userTable,'email','password');
-       
     }
     public function getLayoutVariables(): array {
         if($this->authentication->isLoggedIn() and $this->authentication->getRole()!=0){
@@ -129,6 +128,7 @@ class Ciamax implements \Util\Website{
             "login/login",
             "user/registrationform",
         ];
+        
         if(!in_array($uri,$unrestrictedPages) && !$this->authentication->isLoggedIn()){
             header("Location: /ciamax/public/login/login");
         }
