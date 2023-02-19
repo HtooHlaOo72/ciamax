@@ -4,7 +4,7 @@ if (!empty($errors)) :
   <div class="errors">
     <p>Please Check the Following Errors:</p>
     <ul>
-    <?php
+        <?php
             foreach ($errors as $error) :
                 ?>
         <li><?= $error ?></li>
@@ -17,14 +17,14 @@ endif;
 ?>
 <div class='uk-container' uk-height-viewport style="background-color:#8dc9d7">
     <div class="uk-margin-small-top uk-margin-small-bottom uk-child-width-1-2 uk-grid">
-        <div>
+        <div class=''>
         <h4 style="text-decoration:underline">Stores</h4>
         </div>
         <div>
-        <?php if($role==3): ?>
+        <?php if($role==2 and $ownerNoStore): ?>
         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded uk-float-right"
             href='/ciamax/public/store/register' style="background-color:#2d7484"
-        >Create New Store</a>
+        >Create Your Store</a>
         <?php endif ?>
         </div>
         
@@ -52,11 +52,11 @@ endif;
                         </div> 
                     </div>
                 
-                <?php } ?>
+                    <?php } ?>
                     <div class="uk-card-media-top uk-padding-remove" >
                         <a href='/ciamax/public/store/profile/<?=$store->id??'' ?>'>
                             <img src="http://localhost/ciamax/public/<?=$store->img ?>" alt="" 
-                                class='uk-height-small uk-width-expand'>
+                                class='uk-height-small uk-width-expand' style="max-height:130px;">
                         </a>
                     </div>                    
                     <div class="uk-card-body smallest_font_size uk-padding-remove uk-margin-small-bottom" uk-accordion >

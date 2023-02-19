@@ -21,7 +21,13 @@ class Store {
     public function list(){
         $stores = $this->storeTable->findAll();
         $errors=[];
-        
+        $ownerNoStore= false;
+        if($this->authentication->isLoggedIn() and $this->authentication->getUser()->role==2){
+            $stores = $this->storeTable->find("userId",$this->authentication->getUser()->id);
+            if(count($stores)==0){
+                $ownerNoStore = true;
+            }
+        }
         return [
             'template'=>'storelist.html.php',
             'title'=>'Store List',
@@ -29,6 +35,7 @@ class Store {
                 'stores'=>$stores,
                 'errors'=>$errors,
                 'role'=>$this->authentication->isLoggedIn()?$this->authentication->getRole():"",
+                "ownerNoStore"=>$ownerNoStore,
             ]
         ];
     }
@@ -183,6 +190,7 @@ class Store {
                 "menus"=>$menus,
                 "members"=>$store->getMembers(),
                 "owner"=>$owner,
+                "logUser"=>$this->authentication->getUser(),
                 "histories"=>$histories,
                 "errors"=>$errors,
                 'role'=>$this->authentication->isLoggedIn()?$this->authentication->getRole():"",

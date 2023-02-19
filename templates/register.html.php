@@ -31,7 +31,7 @@ endif;
                                         <div style="display:inline-block;text-align:right;width:70%;min-width:300px"><input class=" uk-form-large" style="width:100%;color : #000;border: 0 solid #fff;background-color:#ADD8E6; box-sizing:border-box;border-radius:25px;border-color:#ADD8E6;" type="text"  placeholder="Enter username" name="user[name]" value="<?=isset($user->name)?$user->name : '' ?>"></div>
                                     </div>
                                 </div>
-                                <input type='hidden' name="user[id]" id='id' value=<?=$user->id??"" ?> />
+                                <input type='hidden' name="user[id]" value=<?=$user->id??"" ?> id='id'  />
                                 <!-- <div class="uk-margin">
                                     <div class="uk-inline uk-width-1-1">
                                         <span class="uk-form-icon" uk-icon="icon:info"></span>

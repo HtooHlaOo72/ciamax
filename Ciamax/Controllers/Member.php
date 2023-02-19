@@ -124,7 +124,7 @@ class Member{
         if(!$member){
             header("Location : /ciamax/public/login/login");
         }
-        $histories = $this->historyTable->find("memberId",$member->id);
+        $histories = $this->historyTable->find("memberId",$member->id);//find current member's history only
         return [
             "template"=>"validatemeal.html.php",
             "title"=>"Validate Meal",

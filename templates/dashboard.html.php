@@ -14,15 +14,15 @@
                         <h4 style="text-decoration:underline">Stores</h4>
                         </div>
                         <div>
-                        <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded"
+                        <!-- <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded"
                             href='/ciamax/public/store/register' style="background-color:#034250;color:#fff;"
                         >Create New Store</a>
-                        </div>
+                        </div> -->
                     </div>                    
                     <div>
                         <div class="uk-child-width-1-3 uk-child-width-1-4@m uk-grid-match uk-grid-medium" uk-grid>
                             <?php foreach($stores as $store):?>
-                            <div class="uk-card card uk-padding-remove uk-margin-small-left" type="button">
+                            <div class="uk-card uk-padding-remove uk-margin-small-left" type="button">
                                 <div class="uk-text-right">
                                     
                                     <div style="display:inline-block">
@@ -60,7 +60,7 @@
                         <div>
                             <a  class="uk-button uk-button-small uk-button-secondary"
                                 href="/ciamax/public/user/registrationform" style="background-color:#034250;color:#fff;border-radius:5px"
-                            >Create New Student</a>
+                            >Create New User</a>
                         </div>
                     </div>
                     <div class="uk-child-width-1-4 uk-margin-small-left uk-margin-small-right uk-grid-match" uk-grid>
@@ -73,8 +73,8 @@
                                     </div>
                                     <div style="display:inline-block">
                                         <!--<a href="/ciamax/public/user/remove/<?=$user->id??""?>"><span class="uk-margin-small-right uk-margin-small-bottom" uk-icon="trash" type="button"></span></a>-->
-                                        <form method='POST' action='' class='uk-border-rounded'>
-                                            <input type='hidden' name='id' value=<?=$user->id??"" ?>/>
+                                        <form method='POST' action='/ciamax/public/user/promotetoowner' class='uk-border-rounded'>
+                                            <input type='hidden' name='userId' value=<?=$user->id??"" ?>/>
                                             <button class="uk-margin-small-right" style="color:#0f0;" type="submit" uk-icon="triangle-up" ></button>
                                         </form>
                                     </div>
@@ -94,7 +94,10 @@
                                         Name : <strong><?=$user->name ?></strong>
                                     </div>
                                     <div>
-                                        Email   : <strong><?=$user->email ?></strong>
+                                        Email : <strong><?=$user->email ?></strong>
+                                    </div>
+                                    <div>
+                                        Role : <strong><?=$user->getRoleName() ?></strong>
                                     </div>
                                 </div>
                             </div>

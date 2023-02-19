@@ -13,7 +13,7 @@ class Ciamax implements \Util\Website{
     private ?\Util\Authentication $authentication;
     private ?string $drop_down_name;
     public function __construct(){
-        $pdo = new \PDO('mysql:host=localhost;dbname=ciamax2','root','rootcms');
+        $pdo = new \PDO('mysql:host=localhost;dbname=ciamax2',"root","");
         $this->userTable = new DatabaseTable($pdo,'user','id','\Ciamax\Entity\User',[&$this->memberTable,&$this->historyTable,&$this->requestTable]);
         $this->menuTable = new DatabaseTable($pdo, "menu", "id", '\Ciamax\Entity\Menu',[&$this->storeTable]);
         $this->memberTable = new DatabaseTable($pdo, 'member', 'id', '\Ciamax\Entity\Member',[&$this->userTable,&$this->storeTable,&$this->historyTable]);
@@ -26,6 +26,13 @@ class Ciamax implements \Util\Website{
         if($this->authentication->isLoggedIn() and $this->authentication->getRole()!=0){
             $this->drop_down_name=$this->authentication->getUser()->name." (".$this->authentication->getRoleName()." )";
         }
+        $ownerNoStore= false;
+        if($this->authentication->isLoggedIn() and $this->authentication->getUser()->role==2){
+            $stores = $this->storeTable->find("userId",$this->authentication->getUser()->id);
+            if(count($stores)==0){
+                $ownerNoStore = true;
+            }
+        }
         $urlList = $this->authentication->isLoggedIn()?$this->getNavUrlListByRole($this->authentication->getRole()):$this->getNavUrlListByRole(0);
         return [
             'loggedIn' => $this->authentication->isLoggedIn(),
@@ -34,6 +41,7 @@ class Ciamax implements \Util\Website{
             'roleNum'=>($this->authentication->isLoggedIn())?$this->authentication->getRole():"",
             'urlList'=>$urlList,
             'drop_down_name'=>(isset($this->drop_down_name) and !empty($this->drop_down_name))?$this->drop_down_name:"",
+            "ownerNoStore"=>$ownerNoStore,
         ];
     }
     public function getNavUrlListByRole($role): array {

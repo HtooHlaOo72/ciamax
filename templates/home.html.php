@@ -13,18 +13,18 @@ use Util\Authentication;
         </main>
         <section class="uk-responsive-height uk-height-medium@s uk-width-expand uk-text-left uk-margin-medium-top">
             <h3 class="uk-margin-small-left uk-margin-small-right uk-border small_title text_white"></h3>
-            <div class="uk-child-width-1-2@s uk-height-max-large " uk-grid>
+            <div class="uk-child-width-1-2@s uk-height-max-large uk-grid-match " uk-grid>
                 <div>
                     <div class="uk-light uk-background-secondary uk-padding uk-card-default" style="background-color:#2d7484;border-radius:25px;">
-                        <h3 class="" >Contact us to join as a store owner</h3>
-                        <p class="uk-text-bold">Sell your best services to students</p>
-                        <a class="uk-button uk-button-secondary " href="mailto:ciamax@uit.edu.mm" style="color:#000;background-color:#ADD8E6;border-radius:25px;">Ciamax@uit.edu.mm</a>
+                    <h3 class="" >Join and provide best services</h3>    
+                        <p class='uk-text-bold'>Contact us via below email address</p>
+                        <a class="uk-button uk-button-secondary uk-text-bold" href="mailto:ciamax@uit.edu.mm" style="color:#000;background-color:#ADD8E6;border-radius:25px;">Ciamax@uit.edu.mm</a>
                     </div>
                 </div>
                 <div>
                     <div class="uk-light uk-background-muted uk-padding uk-card-default" style="background-color:#2d7484;border-radius:25px">
                         <h3>Hosteler Package</h3>
-                        <p class="uk-text-bold">Hostelers can join lunch and dinner package which is only <span>2800 MMK</span> per day</p>
+                        <p class="uk-text-bold">Hostelers can join lunch and dinner package which is only <span style='color:gold;'>2800 MMK</span> per day</p>
                         <a class="uk-button uk-button-secondary " style="color:#000;background-color:#ADD8E6;border-radius:25px;"href="/user/registrationform">Join</a>
                     </div>
                 </div>

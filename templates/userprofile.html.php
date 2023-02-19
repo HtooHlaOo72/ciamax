@@ -1,11 +1,11 @@
-<div class='uk-grid uk-child-width-1-2'
+<div class='uk-grid uk-child-width-1-1 uk-grid-divider'
     style='min-height:95vh;'
 uk-grid>
     
-    <div>
+    <div class='uk-text-center'>
         <?php if($user->img):?>
             <p>
-                <img src="http://localhost/ciamax/public/<?=$user->img ?>" alt="" 
+                <img src="/ciamax/public/<?=$user->img ?>" alt="" 
                                 class='uk-height-small uk-width-small uk-border-circle'>
             </p>
         <?php endif ?>
@@ -35,20 +35,43 @@ uk-grid>
             <a class='uk-button uk-button-small uk-button-default' href='/ciamax/public/user/changeinfo'>Change Info</a>
         <?php endif ?>
     </div>
-    <div>
+    <div class='uk-padding-small-left uk-padding-small-right'>
         
         <?php if($user->isMember()): ?>
             <?php 
             $member = $user->getMember();
             $histories = $member->getHistory();
             ?>
-            <?php foreach($histories as $history):?>
-                <div class=''>
-                    <p><?=$history->getMenu()->name ?></p>
-                    <p><?=$history->date ?></p>
-                    <p><?=$history->status ?></p>
-                </div>
-            <?php endforeach ?>
+            <h3>Meal History</h3>
+           <table class="uk-table uk-table-justify uk-table-divider uk-text-small">
+                <thead>
+                    <tr>
+                        <th class="uk-width-small">Type</th>
+                        <!-- <th>No of Days</th> -->
+                        <th>Date</th>
+                        <!-- <th>Transferred Amount</th> -->
+                        <!-- <th>Transaction ID</th> -->
+                        <th>Status</th>
+                        <th>Menu</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($histories as $meal): ?>
+                    <tr>
+                        <td>
+                            <?=
+                                $meal->type??"<span class='uk-text-danger'>empty</span>"
+                            ?>
+                        </td>
+                        <td><?=$meal->date??"<span class='uk-text-danger'>emty</span>" ?></td>
+                        <td><?=$meal->status??"<span class='uk-text-danger'>emty</span>" ?></td>
+                        <td><?=$meal->getMenu()->name??"<span class='uk-text-danger'>emty</span>" ?></td>
+                        <td><a href="/ciamax/public/member/historydetail/<?=$meal->id ?>" class='uk-button uk-button-small uk-button-default'>Detail</a></td>
+                    </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         <?php endif ?>
     </div>
 </div>

@@ -168,7 +168,7 @@ class User {
         }
        
         if($this->authentication->getRole()!=3){
-            $user["password"]="nopassword";
+           
             if (empty($user['password'])) {
                 $errors[] = 'Password cannot be blank';
             }

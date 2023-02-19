@@ -65,11 +65,19 @@
                                 <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <?php foreach($url['sub_url_list'] as $sub_name=>$sub_url): ?>
-                                            <li class=""><a href="/ciamax/public/<?=$sub_url??'user/home' ?>"><?=$sub_name??"empty" ?></a></li>
+                                            
+                                                <?php if(!$ownerNoStore or $roleNum==1 or $sub_name!="Profile"): ?>
+                                                <li class=""><a href="/ciamax/public/<?=$sub_url??'user/home' ?>"><?=$sub_name??"empty" ?></a></li>
+                                                <?php endif ?>
+                                            
                                         <?php endforeach ?>
                                     </ul>
                                 </div>
                             </li>
+                        <?php }else if($url_name=="Provide Meal" or $url_name == "Member Requests") { ?>
+                            <?php if(!$ownerNoStore): ?>
+                                <li><a class="uk-text-large" href="/ciamax/public/<?=$url??'user/home' ?>"style='color:#fff;'><?=$url_name??"empty" ?></a></li>
+                            <?php endif ?>
                         <?php }else if($url_name=='History'){ ?>
                             <li><a class="uk-text-large" href="/ciamax/public/<?=$profile->isMember()?$url:"member/notmember" ?>"style='color:#fff;'><?=$url_name??"empty" ?></a></li>
 
