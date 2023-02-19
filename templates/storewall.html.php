@@ -2,7 +2,7 @@
 <div class='' uk-height-viewport="expand:true" style="background-color:#8dc9d7">
 <div class="uk-width-expand uk-background-fixed uk-background-center-center uk-height-medium uk-flex uk-flex-center uk-flex-middle"  >
     <main class='uk-flex-inline uk-card-default' style="background-color:#2d7484;color:#fff;border-radius:25px">
-        <div>
+        
             <div class="uk-padding-small" style="width:250px">
                 <img src="http://localhost/ciamax/public/<?=$store->img ?>" alt="<?=$store->name?>'s Image" class='uk-border-circle'>
             </div>
@@ -11,16 +11,15 @@
             <p class='uk-text-default uk-text-bold'>Owner : <?=(isset($owner))?$owner->name:"Name is empty" ?></p>
             <p class='uk-text-default uk-text-bold'>Phone : <?=$store->ph_no?$store->ph_no:"Name is empty" ?></p>
             <p class='uk-text-default uk-text-bold'>Total Members : <?=$store->TotalMembers() ?></p>
-            <a href="/ciamax/public/member/request" style="background-color:#034250;color:#fff;border-radius:5px" class='uk-button uk-button-small uk-button-secondary'>
+            <?php if($user!=$owner || $role==1) {?><a href="/ciamax/public/member/request" style="background-color:#034250;color:#fff;border-radius:5px" class='uk-button uk-button-small uk-button-secondary'>
                 Join Membership
             </a>
+            <?php } ?>
             </div>
-        </div>
-        <div>
             <div class="uk-padding-small" style="width:250px">
                 <img src="http://localhost/ciamax/public/<?=$store->qr_img ?>" alt="<?=$store->name?>'s Image" class='uk-border-rounded'>
             </div>
-        </div>
+        
     </main>
 </div>
 <hr />
@@ -33,9 +32,11 @@
 <ul class="uk-switcher uk-margin-medium-top uk-padding-small" >
     <li class=''>
     <div class="uk-margin-small">
+        <?php if ($user==$owner) {?>
         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded"
         href='/ciamax/public/menu/addmenu' style="background-color:#034250;color:#fff;"
         >Create New Menu</a>
+        <?php } ?>
     </div>
     <div class="uk-child-width-1-3 uk-grid-small" uk-grid>
         <?php foreach($menus as $index=>$menu): ?>
