@@ -185,6 +185,8 @@ class Store {
                 "owner"=>$owner,
                 "histories"=>$histories,
                 "errors"=>$errors,
+                'role'=>$this->authentication->isLoggedIn()?$this->authentication->getRole():"",
+                "user"=>$this->authentication->isLoggedIn()?$this->authentication->getUser():""
             ]
         ];
     }
