@@ -60,8 +60,8 @@
 
                     <?php foreach($urlList as $url_name=>$url): ?>
                         <?php if($url_name=="DropDown"){ ?>
-                            <li>
-                                <button type='button' style='color:#fff;' class='uk-button uk-button-small'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
+                            <li class='uk-flex uk-flex-center'>
+                                <button type='button' style='color:#fff; background-color:#2d7484;' class='uk-button uk-button-small'><?=!empty($drop_down_name)?$drop_down_name:"empty" ?></button>
                                 <div uk-dropdown="pos: bottom-right; boundary: !.boundary; shift: false; flip: false">
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <?php foreach($url['sub_url_list'] as $sub_name=>$sub_url): ?>
