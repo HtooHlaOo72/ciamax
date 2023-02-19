@@ -11,7 +11,7 @@
             <p class='uk-text-default uk-text-bold'>Owner : <?=(isset($owner))?$owner->name:"Name is empty" ?></p>
             <p class='uk-text-default uk-text-bold'>Phone : <?=$store->ph_no?$store->ph_no:"Name is empty" ?></p>
             <p class='uk-text-default uk-text-bold'>Total Members : <?=$store->TotalMembers() ?></p>
-            <?php if($user!=$owner || $role==1) {?><a href="/ciamax/public/member/request" style="background-color:#034250;color:#fff;border-radius:5px" class='uk-button uk-button-small uk-button-secondary'>
+            <?php if($user!=$owner->name || $role==1) {?><a href="/ciamax/public/member/request" style="background-color:#034250;color:#fff;border-radius:5px" class='uk-button uk-button-small uk-button-secondary'>
                 Join Membership
             </a>
             <?php } ?>
@@ -32,7 +32,7 @@
 <ul class="uk-switcher uk-margin-medium-top uk-padding-small" >
     <li class=''>
     <div class="uk-margin-small">
-        <?php if ($user==$owner) {?>
+        <?php if ($user==$owner->name) {?>
         <a class="uk-button uk-button-small uk-button-secondary uk-box-shadow-large uk-border-rounded"
         href='/ciamax/public/menu/addmenu' style="background-color:#034250;color:#fff;"
         >Create New Menu</a>
