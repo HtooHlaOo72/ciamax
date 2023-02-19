@@ -3,7 +3,7 @@
         <ul class="uk-subnav subnav-pill"  uk-switcher="animation:uk-animation-fade">
             <li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Stores</a></li>
             <li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Users</a></li>
-            <li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Manage Home</a></li>
+            <!--<li><a href="#" class='uk-border-rounded uk-box-shadow-large'>Manage Home</a></li>-->
         </ul>
         <hr style="background-color:#8dc9d7;"/>
         <ul class="uk-switcher uk-margin">
@@ -24,20 +24,18 @@
                             <?php foreach($stores as $store):?>
                             <div class="uk-card card uk-padding-remove uk-margin-small-left" type="button">
                                 <div class="uk-text-right">
-                                    <span class='uk-margin-small-right' uk-icon="more" type="button"></span>
-                                    <div uk-dropdown="mode:click" class="uk-padding-remove width_100" style='width:100px;background:none;'>
-                                        <ul class='uk-nav uk-dropdown-nav width_100' style='background:none;'>
-                                            <li class="uk-background-default uk-text-center uk-text-warning uk-border-rounded" style='background:none;'>
-                                                <a href="/ciamax/public/store/register/<?=isset($store->id)?$store->id:"" ?>" class="uk-button uk-button-default uk-border-rounded uk-flex uk-flex-center uk-flex-middle width_100">Update</a>
-                                            </li>
-                                            <li class="uk-background-secondary uk-text-center uk-text-danger uk-border-rounded" style='background:none;'>
-                                                <form method='POST' action='/ciamax/public/store/remove' class='uk-border-rounded'>
-                                                    <input type='hidden' name='id' value=<?=$store->id??"" ?>/>
-                                                    <input type='submit' value="Delete" class='uk-button uk-button-danger uk-border-rounded width_100 ' />
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div> 
+                                    
+                                    <div style="display:inline-block">
+                                        <a href="/ciamax/public/store/register/<?=isset($store->id)?$store->id:"" ?>" ><span class="uk-margin-small-right uk-margin-small-bottom" uk-icon="cog" type="button"></span></a>
+                                    </div>   
+                                    <div style="display:inline-block">
+                                        <form method='POST' action='/ciamax/public/store/remove' class='uk-border-rounded'>
+                                            <input type='hidden' name='id' value=<?=$store->id??"" ?>/>
+                                            <button type='submit' class="uk-margin-small-right uk-margin-small-bottom" uk-icon="trash" style="color:#f00">
+                                        </form>
+                                    </div>
+                                        
+                                    
                                 </div>
                                 <div class="uk-card-media-top uk-padding-remove" >
                                     <img src="http://localhost/ciamax/public/<?=$store->img ?>" alt="" >
@@ -69,26 +67,24 @@
                         <?php foreach($users as $user):?>
                             <div class="uk-card card uk-box-shadow-small uk-padding-remove uk-border-rounded uk-margin-small-left"  type="button">
                                 <div class="uk-text-right">
-                                    <span class='uk-margin-small-right' uk-icon="more" type="button"></span>
-                                    <div uk-dropdown="mode:click" class="uk-padding-remove width_100" style='width:100px;background:none;'>
-                                        <ul class='uk-nav uk-dropdown-nav width_100' style='background:none;'>
-                                            <li class="uk-background-default uk-text-center uk-text-warning uk-border-rounded" style='background:none;'>
-                                                <a href="/ciamax/public/user/changeinfo/<?=isset($user->id)?$user->id:"" ?>" class="uk-button uk-button-default uk-border-rounded uk-flex uk-flex-center uk-flex-middle width_100">Update</a>
-                                            </li>
-                                            <li class="uk-background-secondary uk-text-center uk-text-danger uk-border-rounded" style='background:none;'>
-                                                <form method='POST' action='/ciamax/public/user/remove' class='uk-border-rounded'>
-                                                    <input type='hidden' value=<?=$user->id??"" ?>  name='id' />
-                                                    <input type='submit' value="Delete" class='uk-button uk-button-danger uk-text-center uk-border-rounded width_100 ' />
-                                                </form>
-                                            </li>
-                                            <li class="uk-background-secondary uk-text-center uk-border-rounded" style='background:none;'>
-                                                <form method='POST' action='/ciamax/public/user/promotetoowner' class='uk-border-rounded'>
-                                                    <input type='hidden'  value=<?=$user->id??"" ?> name='userId'  />
-                                                    <input type='submit' value="Promote" class='uk-button uk-button-danger uk-border-rounded width_100 ' />
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div> 
+                                    
+                                    <div style="display:inline-block">
+                                        <a href="/ciamax/public/user/changeinfo/<?=$user->id??""?>" ><span class="uk-margin-small-right uk-margin-small-bottom" uk-icon="cog" type="button"></span></a>
+                                    </div>
+                                    <div style="display:inline-block">
+                                        <!--<a href="/ciamax/public/user/remove/<?=$user->id??""?>"><span class="uk-margin-small-right uk-margin-small-bottom" uk-icon="trash" type="button"></span></a>-->
+                                        <form method='POST' action='' class='uk-border-rounded'>
+                                            <input type='hidden' name='id' value=<?=$user->id??"" ?>/>
+                                            <button class="uk-margin-small-right" style="color:#0f0;" type="submit" uk-icon="triangle-up" ></button>
+                                        </form>
+                                    </div>
+                                    <div style="display:inline-block">
+                                        <!--<a href="/ciamax/public/user/remove/<?=$user->id??""?>"><span class="uk-margin-small-right uk-margin-small-bottom" uk-icon="trash" type="button"></span></a>-->
+                                        <form method='POST' action='/ciamax/public/user/promotetoowner'class='uk-border-rounded'>
+                                            <input type='hidden' name='id' value=<?=$user->id??"" ?>/>
+                                            <button class="uk-margin-small-right" style="color:#f00;" type="submit" uk-icon="trash" ></button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <div class="uk-card-media-top uk-padding-remove" >
                                     <img src="http://localhost/ciamax/public/<?=$user->img??'images/canteen_img/student/male_avatar.jpg'?>"  alt="" class='uk-width-expand uk-height-small'>
