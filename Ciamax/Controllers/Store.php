@@ -143,9 +143,7 @@ class Store {
             'title'=>"Register Success"
         ];
     }
-    public function updateSubmit(){
-        return [];
-    }
+   
     public function removeSubmit(){
         $id = $_POST['id'];
         if(!is_null($id)){
@@ -172,7 +170,11 @@ class Store {
         // $owner =$this->authentication->getUser();
         $owner = $this->userTable->find('id',$store->userId)[0];
         $menus = $this->menuTable->find('storeId', $store->id);
-        
+        $histories = $this->historyTable->findAll();//get all histories
+        //filter history by store id
+        $histories = array_filter($histories,function  ($history) use ($store) {
+            return ($history->getMember()[0]->storeId == $store->id);
+        });
         return [
             'template' => "storewall.html.php",
             'title' => 'Store',
@@ -181,22 +183,23 @@ class Store {
                 "menus"=>$menus,
                 "members"=>$store->getMembers(),
                 "owner"=>$owner,
+                "histories"=>$histories,
                 "errors"=>$errors,
             ]
         ];
     }
     public function validateRequest($storeId=null){
         $requests=[];
-        if($storeId){
-            $requests = $this->requestTable->find('storeId',$storeId);
-        }else{
-            $requests = $this->requestTable->findAll();
+        if(!$storeId){
+            $store = $this->storeTable->find("userId",$this->authentication->getUser()->id)[0];
+            $storeId = $store->id;
         }
+        $requests = $this->requestTable->find('storeId',$storeId);
         return [
             "template"=>"requestlist.html.php",
             "title"=>"Requests",
             "variables"=>[
-                "requests"=>$requests
+                "requests"=>$requests,
             ]
         ];
     }
@@ -323,6 +326,7 @@ class Store {
 
     public function requestDetail($id=null){
         $request=$requests=null;
+        $store=null;
         $errors = [];
         try{
             $requests = $this->requestTable->find('id',$id);
@@ -330,6 +334,7 @@ class Store {
                 $request = null;
             }else{
                 $request = $requests[0];
+                $store = $this->storeTable->find("userId",$this->authentication->getUser()->id)[0];
             }
         }
         catch(Exception $e){
@@ -342,6 +347,7 @@ class Store {
             "variables"=>[
                 "request"=>$request,
                 "errors"=>$errors,
+                "logStore"=>$store,
             ],
         ];
     }

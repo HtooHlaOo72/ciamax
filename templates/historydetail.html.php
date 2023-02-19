@@ -1,3 +1,8 @@
+<?php
+    $member = $history->getMember()[0];
+    $user = $member->getUser();
+    $isHistoryOwner = $user->id == $logUser->id;
+?>
 <div class='uk-container' style="min-height:95vh;">
     <h2>History Detail</h2>
     <?php 
@@ -8,8 +13,7 @@
     <div>
         <div id='member'>
             <p>
-                <img src="http://localhost/ciamax/public/<?=$user->img ?>" alt="" 
-                                class='uk-height-small uk-width-small uk-border-circle'>
+                <img src="http://localhost/ciamax/public/<?=$user->img ?>" alt="" class='uk-height-small uk-width-small uk-border-circle'>
             </p>
             <p>
                 <?=$history->getMember()[0]->getUser()->name ?>
@@ -26,9 +30,11 @@
                                 class='uk-height-small uk-width-small uk-border-circle'>
             </p>
         </div>
+        
         <div id="action">
-           <p><?=$history->status ?></p>
-           <div>
+            <p><?=$history->status ?></p>
+            <?php if($isHistoryOwner): ?>
+            <div>
                 <form
                     action="/ciamax/public/member/validatemeal"
                     method="POST"
@@ -50,6 +56,7 @@
                     <input type='submit' <?=($history->status=='rejected' or $history->status == "accepted")?'disabled':"" ?> <?=($member->canAccceptMeal())?"":"disabled" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
                 </form>
            </div>
+           <?php endif ?>
         </div>
         
     </div>

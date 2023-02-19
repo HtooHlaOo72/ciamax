@@ -7,6 +7,7 @@
     }else if($request->is_rejected){
         $status = "rejected";
     }
+    $isReqOwner = $store->id == $logStore->id;
 ?>
 <div class='uk-margin-small-top'>
     <h2 class='uk-text-center uk-text-bolder'>Request Detail</h2>
@@ -46,6 +47,7 @@
             </div>
             
         </p>
+        <?php if($isReqOwner): ?>
         <p>
             <form
                 action="/ciamax/public/store/validaterequest"
@@ -68,5 +70,6 @@
                 <input type='submit' <?=($request->is_accepted or $request->is_rejected)?'disabled':"" ?> value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
             </form>
         </p>
+        <?php endif ?>
     </div>
 </div>

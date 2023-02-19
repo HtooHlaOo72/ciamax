@@ -130,7 +130,6 @@ class Member{
             "title"=>"Validate Meal",
             "variables"=>[
                 "histories"=>$histories,
-                
             ]
         ];
 
@@ -208,6 +207,8 @@ class Member{
             "title"=>"History Detail",
             "variables"=>[
                 "history"=>$history,
+                "logUser"=>$this->authentication->getUser(),
+
             ]
         ];
     }

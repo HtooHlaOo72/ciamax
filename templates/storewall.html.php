@@ -23,12 +23,13 @@
         </div>
     </main>
 </div>
-
-<ul class="uk-subnav subnav-pill uk-child-width-1-2 uk-margin-small-top" uk-switcher="animation: uk-animation-fade" uk-grid>
+<hr />
+<ul class="uk-subnav subnav-pill uk-child-width-1-3 uk-margin-small-top" uk-switcher="animation: uk-animation-fade" uk-grid>
     <li><a href="#" style="border:2px solid #2d7484" class='uk-flex uk-flex-center'>Menus</a></li>
     <li><a href="#" style="border:2px solid #2d7484" class='uk-flex uk-flex-center'>Members</a></li>
+    <li><a href="#" style="border:2px solid #2d7484" class='uk-flex uk-flex-center'>History</a></li>
 </ul>
-
+<hr />
 <ul class="uk-switcher uk-margin-medium-top uk-padding-small" >
     <li class=''>
     <div class="uk-margin-small">
@@ -36,9 +37,9 @@
         href='/ciamax/public/menu/addmenu' style="background-color:#034250;color:#fff;"
         >Create New Menu</a>
     </div>
-    <div class="uk-child-width-1-2 uk-grid-small" uk-grid>
+    <div class="uk-child-width-1-3 uk-grid-small" uk-grid>
         <?php foreach($menus as $index=>$menu): ?>
-            <div class="uk-card  card uk-border-rounded uk-margin-small-left uk-margin-small-bottom">
+            <div class="uk-card uk-border-rounded uk-margin-small-left uk-margin-small-bottom">
                 <div class="uk-card-media-top">
                     <img class='uk-width-expand uk-height-small uk-border-rounded' src=<?=$menu->img?"/ciamax/public/".$menu->img:"images/canteen_img/c2.jpg" ?> alt="">
                 </div>
@@ -52,17 +53,17 @@
     </div>
     </li>
     <li>
-        <div class='uk-child-width-1-2 uk-child-width-1-3@m' style="background-color:#8dc9d7">
+        <div class='uk-child-width-1-3 uk-grid-small' style="background-color:#8dc9d7" uk-grid>
             <?php foreach($members as $member): ?>
-            <div class="uk-card card uk-width-1-2@m">
+            <div class="uk-card uk-border-rounded">
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
                             <img class="uk-border-circle" width="40" height="40" src="/ciamax/public/<?=(isset($member->getUser()->img))?$member->getUser()->img:"/images/canteen_img/admin/admin_icon.jpg" ?>" alt="Avatar">
                         </div>
                         <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom">Title</h3>
-                            <p class="uk-text-meta uk-margin-remove-top"><time><?=!empty($member->start_date)?$member->start_date:date("M-d-Y H:i") ?></time></p>
+                            <h3 class="uk-card-title uk-margin-remove-bottom" style='color:gold;'><?=$member->getUser()->name??"<span class='uk-text-danger'>empty</span>" ?></h3>
+                            <p class="uk-text-meta uk-margin-remove-top"><time><?=!empty($member->start_date)?$member->start_date:date("M-d-Y") ?></time></p>
                         </div>
                     </div>
                 </div>
@@ -70,10 +71,44 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                 </div>
                 <div class="uk-card-footer">
-                    <a href="#" class="uk-button uk-button-text">Read more</a>
+                    <a href="/ciamax/public/user/profile/<?=$member->getUser()->id?>" class="uk-button uk-button-text">To Profile</a>
                 </div>
             </div>
             <?php endforeach ?>
+        </div>
+    </li>
+    <li>
+        <div class='uk-child-width-1-1' style="background-color:#8dc9d7">
+        <table class="uk-table uk-table-justify uk-table-divider">
+            <thead>
+                <tr>
+                    <th class="uk-width-small">Type</th>
+                    <!-- <th>No of Days</th> -->
+                    <th>Date</th>
+                    <!-- <th>Transferred Amount</th> -->
+                    <!-- <th>Transaction ID</th> -->
+                    <th>Status</th>
+                    <th>Menu</th>
+                    <th>Detail</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($histories as $meal): ?>
+                <tr>
+                    <td>
+                        <?=
+                        $meal->type??"<span class='uk-text-danger'>empty</span>"
+                        ?>
+                    </td>
+                    <td><?=$meal->date??"<span class='uk-text-danger'>emty</span>" ?></td>
+                    <td><?=$meal->status??"<span class='uk-text-danger'>emty</span>" ?></td>
+                    <td><?=$meal->getMenu()->name??"<span class='uk-text-danger'>emty</span>" ?></td>
+                    <td><a href="/ciamax/public/member/historydetail/<?=$meal->id ?>" class='uk-button uk-button-small uk-button-default'>Detail</a></td>
+                </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
         </div>
     </li>
 </ul>
