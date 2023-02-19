@@ -32,7 +32,7 @@ uk-grid>
             </p>
         <?php endif ?>
         <?php if($user->id == $logUser->id):?>
-            <a class='uk-button uk-button-small uk-button-default' href='/ciamax/public/user/changeinfo'>Change Info</a>
+            <a class='uk-button uk-button-small uk-button-secondary' href='/ciamax/public/user/changeinfo'>Change Info</a>
         <?php endif ?>
     </div>
     <div class='uk-padding-small-left uk-padding-small-right'>

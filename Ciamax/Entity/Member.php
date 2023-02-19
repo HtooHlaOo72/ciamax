@@ -8,7 +8,6 @@ use Util\DatabaseTable;
 class Member extends User {
     public $id;
     public $left_times;
-    public $is_paid;
     public $start_date;
     public $roll_no;
     public $userId;
@@ -55,7 +54,6 @@ class Member extends User {
         return [
             "id"=>$this->id,
             "left_times"=>$this->left_times,
-            "is_paid"=>$this->is_paid,
             "start_date"=>$this->start_date,
             "roll_no"=>$this->roll_no,
             "userId"=>$this->userId,

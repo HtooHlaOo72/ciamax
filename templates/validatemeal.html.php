@@ -1,7 +1,5 @@
-<div class='uk-container' style='min-width:90vh;'>
+<div class='uk-container' uk-height-viewport="expand:true">
 <h3 class='uk-h3'><span style='text-decoration:underline;'>Meal Requests</span></h3>
-
-
 <table class="uk-table uk-table-justify uk-table-divider">
     <thead>
         <tr>
@@ -50,7 +48,7 @@
                 >
                     <input type='hidden' name='id' value="<?=$meal->id??'' ?>"/>
                     <input type='hidden' name="status" value="rejected" />
-                    <input type='submit' <?=(($meal->status=='accepted' or $meal->status=='rejected') && !$member->canAccceptMeal())?'disabled':"" ?>  <?=$member->canAccceptMeal()?"":"disabled" ?>    value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
+                    <input type='submit' <?=(($meal->status=='accepted' or $meal->status=='rejected'))?'disabled':"" ?>  <?=$member->canAccceptMeal()?"":"disabled" ?>    value="Reject" class='uk-button uk-button-small uk-button-danger' style='width:100px;'/>
                 </form>
             </td>
         </tr>
