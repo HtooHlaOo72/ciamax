@@ -228,20 +228,15 @@ class User {
             ]
         ];
     }
-    public function menuList(){
-
-    }
-    public function subscribe(){
-
-    }
-    public function subscribeSubmit(){
-
-    }
-    public function purchase(){
-
-    }
-    public function purchaseSubmit(){
-
+    public function promoteToOwnerSubmit(){
+        $userId = $_POST["userId"];
+        if($userId){
+            $user = $this->userTable->find("id",$userId)[0];
+            $user->role = 2;//promote role to store owner which is eq to '2'
+            $user = $user->toArrray();
+            $this->userTable->save($user);
+        }
+        header("Location: /ciamax/public/user/dashboard");
     }
     
 }

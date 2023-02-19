@@ -55,5 +55,14 @@ class User {
         }
         return true;
     }
-    
+    public function toArrray(){
+        return [
+            "id"=>$this->id,
+            "name"=>$this->name,
+            "email"=>$this->email,
+            "password"=>$this->password,
+            "role"=>$this->role,
+            "img"=>$this->img,
+        ];
+    }
 }

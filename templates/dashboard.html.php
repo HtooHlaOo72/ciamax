@@ -77,8 +77,14 @@
                                             </li>
                                             <li class="uk-background-secondary uk-text-center uk-text-danger uk-border-rounded" style='background:none;'>
                                                 <form method='POST' action='/ciamax/public/user/remove' class='uk-border-rounded'>
-                                                    <input type='hidden' name='id' value=<?=$user->id??"" ?>/>
-                                                    <input type='submit' value="Delete" class='uk-button uk-button-danger uk-border-rounded width_100 ' />
+                                                    <input type='hidden' value=<?=$user->id??"" ?>  name='id' />
+                                                    <input type='submit' value="Delete" class='uk-button uk-button-danger uk-text-center uk-border-rounded width_100 ' />
+                                                </form>
+                                            </li>
+                                            <li class="uk-background-secondary uk-text-center uk-border-rounded" style='background:none;'>
+                                                <form method='POST' action='/ciamax/public/user/promotetoowner' class='uk-border-rounded'>
+                                                    <input type='hidden'  value=<?=$user->id??"" ?> name='userId'  />
+                                                    <input type='submit' value="Promote" class='uk-button uk-button-danger uk-border-rounded width_100 ' />
                                                 </form>
                                             </li>
                                         </ul>
